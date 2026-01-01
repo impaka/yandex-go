@@ -1,0 +1,159 @@
+Команда go clean удаляет временные файлы, которые были созданы во время сборки проекта. Она также удаляет кэш результатов тестов. Давайте попробуем запустить тесты после очистки кэша:
+
+go clean -cache
+go test -v
+Теперь мы видим, что тесты выполняются:
+
+ivan.ivanov ~/project $ go test -v
+=== RUN   TestSomething
+--- FAIL: TestSomething (0.00s)
+FAIL
+exit status 1
+FAIL    module3_1-lesson        2.285s
+
+
+
+
+
+
+
+
+Структура директорий должна выглядеть примерно так:
+
+ivan.ivanov ~/project $ tree
+.
+├── README.md
+├── go.mod
+├── internal
+│   └── counter
+│       ├── main.go
+│       └── main_test.go
+├── main.go
+└── main_test.go
+Запустим тесты во всех пакетах внутри текущего модуля:
+
+
+
+
+
+
+
+-v — выводит подробную информацию о тестах
+go clean — очищает кэш результатов тестов
+-count=1 — запускает тесты нужное количество раз
+-run — запускает тесты по имени
+./... — запускает тесты во всех пакетах внутри текущего модуля
+-cover — выводит информацию о покрытии кода тестами
+
+
+
+
+
+
+
+
+
+
+
+
+
+Функция Sum(a, b int) int (пакет main) возвращает результат суммирования 
+чисел a и b. Напишите тест TestSum(t *testing.T) для проверки 
+корректности работы.
+
+Примечания
+Функцию Sum(a, b int) int реализовывать не нужно.
+func Sum(a, b int) int {
+	return a + b
+}
+func TestSum(t *testing.T) {
+	result := Sum(1, 2)
+	expected := 3
+	if result != expected {
+		t.Fatalf(`func Sum(1,2) = %q, want %q`, expected, result)
+	}
+}
+
+
+
+
+Дополните тест для функции Length из урока, 
+чтобы покрытие кода составляло 100%.
+
+package main_test
+
+import (
+	main "buildcalc/Go-1/yandex_work/work9"
+	"testing"
+)
+
+// func Length(a int) string {
+// 	switch {
+// 	case a < 0:
+// 		return "negative"
+// 	case a == 0:
+// 		return "zero"
+// 	case a < 10:
+// 		return "short"
+// 	case a < 100:
+// 		return "long"
+// 	}
+// 	return "very long"
+// }
+
+func TestLength(t *testing.T) {
+	mapTest := map[int]string{
+		-1:  "negative",
+		0:   "zero",
+		5:   "short",
+		50:  "long",
+		150: "very long",
+	}
+	for k, v := range mapTest {
+		result := main.Length(k)
+		if result != v {
+			t.Fatalf(`func Length(a int) = %q, want %q`, result, v)
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+Напишите тест для функции DeleteVowels(s string) string, 
+которая должна удалять все гласные из строки английского 
+языка (y гласной не считается).
+
+Примечания
+Используйте table driven testing. Функцию 
+DeleteVowels реализовывать не нужно.
+
+
+
+
+
+
+
+Функция GetUTFLength(input []byte) (int, error) 
+возвращает длину строки UTF8 и ошибку ErrInvalidUTF8 
+(в случае возникновения). Напишите тест, который бы 
+проверял возвращаемые функцией значения.
+
+var ErrInvalidUTF8 = errors.New("invalid utf8")
+
+func GetUTFLength(input []byte) (int, error) {
+    if !utf8.Valid(input) {
+        return 0, ErrInvalidUTF8
+    }
+
+    return utf8.RuneCount(input), nil
+}
+Примечания
+Функцию GetUTFLength реализовывать не нужно.

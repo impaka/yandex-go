@@ -1,0 +1,148 @@
+// Программисту Арсению в домашней работе по математике нужно решить длиннющее выражение,
+//  ещё и подставляя в него разные числа. 
+//  Помогите Арсению побыстрее расправиться с домашкой и напишите программу,
+//  которая считывает с консоли пять чисел x, y, z, m, n,
+//  выполняет подстановку в формулу (5x * sin(2y)) / (z + n ^ ln(m)) и выводит результат.
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	var x float64
+	var y float64
+	var z float64
+	var m float64
+	var n float64
+
+	fmt.Scanln(&x)
+	fmt.Scanln(&y)
+	fmt.Scanln(&z)
+	fmt.Scanln(&m)
+	fmt.Scanln(&n)
+	res := (5 * x * math.Sin(2*y)) / (z + math.Pow(n, math.Log(m)))
+	fmt.Println(res)
+
+}
+
+func main() {
+	var oneNum float32
+	var twoNum float32
+	var threeNum float32
+	fmt.Scanln(&oneNum)
+	fmt.Scanln(&twoNum)
+	fmt.Scanln(&threeNum)
+	minOneTwoo := math.Min(float64(oneNum), float64(twoNum))
+	minres := math.Min(minOneTwoo, float64(threeNum))
+
+	fmt.Println(minres)
+}
+
+func main() {
+	now := time.Now()                                              // Текущее время
+	timeOfBirth := time.Date(2003, 11, 11, 9, 45, 30, 0, time.UTC) // Время рождения
+
+	diff := now.Sub(timeOfBirth) // Разница между текущим временем и временем рождения
+	format := now.Format(diff.String())
+	fmt.Println(format)
+	fmt.Println(diff.Hours()) // Вывод разницы в часах
+}
+
+
+
+// Программист Арсений так устал за день, что вечером стал путаться в простейших вычислениях.
+// Даже понять, какое из чисел в паре больше, он может не сразу. 
+// Помогите Арсению и напишите программу, 
+// которая из двух дробных чисел находит большее и округляет его до ближайшего целого числа.
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	var oneNum float64
+	var twoNum float64
+
+	fmt.Scanln(&oneNum)
+	fmt.Scanln(&twoNum)
+	maxNum := math.Max(oneNum, twoNum)
+	fmt.Printf("%d", int(math.Floor(maxNum)))
+
+}
+
+
+
+// Программист Арсений всегда везде опаздывает, потому что не любит носить с собой часы. У него так мало свободного времени, 
+// что он просит вас помочь с этой насущной проблемой.
+
+// Напишите программу, которая считывает с консоли время и выводит сообщение в формате: 
+// Текущее время *часы* часов, *минуты* минут. Ты точно не забыл про важные дела на сегодня?.
+
+// Формат ввода
+// Время в формате yyyy-MM-dd/hh:mm:ss
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	var input string
+
+	fmt.Scanln(&input)
+	resultTime, err := time.Parse("2006-01-02/15:04:05", input)
+	if err != nil {
+		fmt.Errorf("error time:%w", err)
+	}
+	fmt.Printf("Текущее время %d часов, %d минут. Ты точно не забыл про важные дела на сегодня?", 
+	int(resultTime.Hour()),
+	 int(resultTime.Minute()),
+	)
+}
+
+
+
+
+// Программист Арсений мечтает создать машину времени. Конечно, работа не простая, но кто-то же должен это сделать.
+//  Арсений решил начать с малого и хочет написать код, который будет выводить информацию,
+//   на сколько лет в будущее он переместился.
+
+// Напишите программу, которая считывает с консоли время будущего и настоящего и возвращает указание,
+// сколько лет «назад» был нынешний год. Строка должна выглядеть так: X year ago
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	var timeNow string
+	var timeOld string
+
+	fmt.Scanln(&timeNow)
+	fmt.Scanln(&timeOld)
+
+	// Парсим даты в формате YYYY-MM-DD
+	tNow, err := time.Parse("2006-01-02", timeNow)
+	if err != nil {
+		fmt.Println("Ошибка парсинга:", err)
+		return
+	}
+
+	tOld, err := time.Parse("2006-01-02", timeOld)
+	if err != nil {
+		fmt.Println("Ошибка парсинга:", err)
+		return
+	}
+
+	result := tNow.Year() - tOld.Year()
+
+	fmt.Printf("%d year ago", result)
+}
+

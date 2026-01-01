@@ -1,0 +1,359 @@
+// хороший тон
+package main
+
+import "fmt"
+
+func main() {
+	var number int
+	fmt.Scanln(&number)
+
+	// Вычисляем квадрат числа и сразу проверяем условие
+	if square := number * number; square > 50 {
+		fmt.Println("Квадрат числа больше 50")
+	} else {
+		fmt.Println("Квадрат числа меньше или равен 50")
+	}
+}
+
+// Напишите программу, которая принимает на вход строку и,
+//  если это строка Go, выводит Go!,
+//  а если нет, — Я знаю только Go!.
+package main
+
+import "fmt"
+
+func main() {
+	var input string
+	fmt.Scanln(&input)
+
+	if input == "Go" {
+		fmt.Println("Go!")
+		return
+	}
+	fmt.Println("Я знаю только Go!")
+}
+
+
+// Напишите программу, которая запрашивает у пользователя два числа
+//  и выводит на экран сообщение:
+//  Первое число больше второго, Второе число больше первого,
+//  или Числа равны по результатам сравнения.
+package main
+
+import "fmt"
+
+func main() {
+	var oneNum float64
+	var twoNum float64
+	fmt.Scan(&oneNum, &twoNum)
+
+	if oneNum > twoNum {
+		fmt.Println("Первое число больше второго")
+	} else if twoNum > oneNum {
+		fmt.Println("Второе число больше первого")
+	} else {
+		fmt.Println("Числа равны")
+	}
+
+}
+
+
+
+
+// Напишите программу, которая получает на вход число рублей,
+//  копеек и цену кофе в рублях, и выводит Сегодня будет вкусный кофе!,
+//  если денег на него хватает,
+//  или Стоит подкопить в противном случае.
+package main
+
+import "fmt"
+
+func main() {
+	var rubles float64                                                 // переменная для  рублей
+	var pennies float64                                                // переменная для копеек
+	var priceCoffee float64                                            // переменная для цены на кофе
+	fmt.Scan(&rubles, &pennies, &priceCoffee)                          //получаем все
+	if sumMoney := rubles*100 + pennies; sumMoney >= priceCoffee*100 { //переводим в копейки и сравниваем
+		fmt.Println("Сегодня будет вкусный кофе!") // денег хватает
+		return
+	}
+
+	fmt.Println("Стоит подкопить") // денег не хватает
+}
+
+
+
+// Напишите программу, которая будет проверять точность Арсения.
+//  На вход ей подаётся число, а она выводит арифметический корень из него,
+//  если корень извлечь возможно.
+//  А если нет, то -1.
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	var oneNum float64
+	fmt.Scan(&oneNum)
+	if oneNum < 0 {
+		fmt.Println("-1")
+		return
+	}
+	fmt.Printf("%.3f", math.Sqrt(oneNum))
+}
+
+
+
+
+
+// Помогите Арсению найти такие числа — напишите программу,
+//  на вход которой будет подаваться целое число,
+//  а программа должна будет выводить один из результатов:
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	var num int
+	fmt.Scan(&num)
+	if num == 0 {
+		fmt.Println("Число 0")
+	} else if num >= -9 && num <= 9 {
+		fmt.Println("Число однозначное")
+		return
+	} else if num%2 == 0 {
+		fmt.Println("Число чётное")
+		return
+	} else if num > 0 {
+		fmt.Println("Число положительное")
+		return
+	} else {
+		fmt.Println("Число красивое")
+
+	}
+}
+
+
+
+
+switch variable {
+case value1:
+    // Выполняемые действия, если variable равна value1
+case value2:
+    // Выполняемые действия, если variable равна value2
+...
+default:
+    // Выполняемые действия, если variable не равна ни одному из значений
+}
+
+
+
+
+
+//Напишите программу, которая сравнивает три числа и выводит 
+// ‘Максимальное равенство‘,
+//  если все числа равны или ‘Не равны‘
+//  в противном случае.
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	var oneNum float64
+	var twoNum float64
+	var threeNum float64
+
+	fmt.Scan(&oneNum, &twoNum, &threeNum)
+	if oneNum == twoNum && oneNum == threeNum {
+		fmt.Println("Максимальное равенство")
+		return
+	}
+	fmt.Println("Не равны")
+}
+
+
+//Выбор надёжного пароля — непростая задача,
+//  он должен быть как минимум из 8 символов.
+//  Помогите программисту Арсению из двух паролей выбрать надёжный.
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	var onePassword string
+	var twoPassword string
+
+	fmt.Scan(&onePassword, &twoPassword)
+	switch {
+	case len(onePassword) >= 8 && len(twoPassword) >= 8:
+		fmt.Println("Оба пароля надёжные")
+	case len(onePassword) >= 8:
+		fmt.Println("Только первый пароль надёжный")
+
+	case len(twoPassword) >= 8:
+		fmt.Println("Только второй пароль надёжный")
+
+	default:
+		fmt.Println("Оба пароля ненадёжные")
+
+	}
+
+}
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	var onePassword string
+	var twoPassword string
+
+	fmt.Scan(&onePassword, &twoPassword)
+	switch {
+	case len(onePassword) >= 8 && len(twoPassword) >= 8:
+		fmt.Println("Оба пароля надёжные")
+	case len(onePassword) >= 8:
+		fmt.Println("Только первый пароль надёжный")
+
+	case len(twoPassword) >= 8:
+		fmt.Println("Только второй пароль надёжный")
+
+	default:
+		fmt.Println("Оба пароля ненадёжные")
+
+	}
+
+}
+
+
+
+; Программист Арсений очень любит играть в «Камень, ножницы,
+;   бумага» и решил разработать программу,
+;   которая моментально определяет победителя.
+
+; На вход ей подаются два результата игроков,
+;   то есть слова: камень, ножницы или бумага.
+;   Нужно определить, кто из двух игроков выиграл,
+;   и вывести один из результатов:
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+
+	var oneInput string
+	var twoInput string
+
+	fmt.Scan(&oneInput)
+	fmt.Scan(&twoInput)
+
+	oneInput = strings.TrimSpace(strings.ToLower(oneInput))
+	twoInput = strings.TrimSpace(strings.ToLower(twoInput))
+
+	maxWord := max(oneInput, twoInput)
+
+	switch maxWord {
+	case oneInput:
+		fmt.Println("Первый игрок победил")
+	case twoInput:
+		fmt.Println("Второй игрок победил")
+	default:
+		fmt.Println("Ничья")
+	}
+
+}
+
+func max(a, b string) string {
+	oneIndex, twoIndex := -1, -1
+	variants := []string{
+		"бумага",
+		"ножницы",
+		"камень",
+	}
+
+	for i, v := range variants {
+		if v == a {
+			oneIndex = i
+		}
+		if v == b {
+			twoIndex = i
+		}
+	}
+
+	if oneIndex == len(variants)-1 && twoIndex == 0 {
+		twoIndex = len(variants)
+	} else if twoIndex == len(variants)-1 && oneIndex == 0 {
+		oneIndex = len(variants)
+	}
+
+	if oneIndex > twoIndex {
+		return a
+	}
+	if twoIndex > oneIndex {
+		return b
+	}
+
+	return ""
+}
+package main
+
+import (
+	"fmt"
+)
+
+
+
+func main() {
+	var oneInput string
+	var twoInput string
+
+	fmt.Scan(&oneInput)
+	fmt.Scan(&twoInput)
+	if oneInput == twoInput {
+		fmt.Println("Ничья")
+
+	} else if oneInput == "ножницы" && twoInput == "бумага" || (oneInput == "камень" && twoInput == "ножницы") {
+		fmt.Println("Первый игрок победил")
+	} else if twoInput == "ножницы" && oneInput == "бумага" || (twoInput == "камень" && oneInput == "ножницы") {
+		fmt.Println("Второй игрок победил")
+	}
+
+}
+
+
+
+Напишите программу,
+ которая получает знак + или - и целое число 
+ (количество градусов) или 0,
+  а выводит:
+
+Стоит надеть майку и шорты, если градусов больше +20
+Стоит надеть штаны и кофту, если от +10 до +20 градусов
+Стоит надеть куртку, если от -5 до +9
+Стоит надеть зимнюю куртку, если меньше
+Формат ввода
+Знак + или - и целое число
+
+Формат вывода
+Строка
+
+Пример 1
+Ввод	Вывод
++ 30
+Стоит надеть майку и шорты
+Пример 2
+Ввод	Вывод
+0
+Стоит надеть куртку

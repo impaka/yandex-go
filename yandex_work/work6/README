@@ -1,0 +1,873 @@
+
+; Даже если сейчас код и не нужно повторять несколько раз,
+;  всё равно стоит выносить отдельные по смыслу части кода в функции.
+;   Это помогает разделить и систематизировать его. Стремитесь к тому,
+;   чтобы функции были небольшими и решали одну конкретную задачу.
+;   Если функция получается слишком длинной,
+;   возможно, стоит разбить её на несколько коротких.
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+// Название         Параметры с типом
+func findDiscriminant(a, b, c float64) {
+	// Тело функции
+	discriminant := math.Pow(b, 2) - 4.0*a*c // Вычисления дискриминанта по формуле D = b^2 - 4*a*c
+	fmt.Println(discriminant)
+}
+
+func main() {
+	findDiscriminant(1, -3.0, 2) // a = 1  b = -3.0  c = 2
+	// Вывод: 1
+
+	findDiscriminant(1, 4.0, 2) // a = 1  b = 4.0   c = 2
+	// Вывод: 8
+}
+
+
+
+
+
+; Возьмём на доработку уже полюбившуюся вам задачу «Go или не Go,
+;  вот в чём вопрос». Напишите процедуру GoOrNot(),
+;   которая принимает на вход строку и, если это строка Go,
+;    выводит Go!, а если нет, то Я знаю только Go!.
+
+; Формат ввода
+; Процедура GoOrNot()
+package main
+
+import "fmt"
+
+func GoOrNot(input string) {
+	switch input {
+	case "Go":
+		fmt.Println("Go!")
+	default:
+		fmt.Println("Я знаю только Go!")
+	}
+}
+
+
+
+
+Программист Арсений часто путешествует, но до сих пор с трудом находит нужную информацию
+ на табло в аэропортах. Он решил сам запрограммировать простой и понятный вывод
+ информации о полётах и предложить свою разработку аэропортовому руководству.
+
+Помогите программисту-путешественнику и напишите процедуру PrintFlightRow().
+;  Она должна принимать на вход номер рейса, города отправления и прибытия в виде строк,
+;  продолжительность полёта в виде дробного числа часов с точностью до одного знака после
+;  запятой, номер стойки регистрации и гейт в виде целых чисел, а также булевую переменную, закончилась ли регистрация (если true, то закончилась).
+package main
+
+import "fmt"
+
+func PrintFlightRow(flightNumber, departurCity, arrivalCty string, flightDuration float64, registerNum, geyt int, register bool) {
+	if !register {
+		fmt.Printf("| %s | %s—%s | %d регистрация продолжается |\n",
+			flightNumber,
+			departurCity,
+			arrivalCty,
+			registerNum,
+		)
+	} else {
+		fmt.Printf("| %s | %s—%s | регистрация закончилась, проходите к гейту: %d | длительность полёта %.1f часа |\n",
+			flightNumber,
+			departurCity,
+			arrivalCty,
+			geyt,
+			flightDuration,
+		)
+	}
+}
+
+func main() {
+	PrintFlightRow("117B", "Москва", "Казань", 2, 115, 3, false)
+	PrintFlightRow("117B", "Москва", "Казань", 2, 115, 3, true)
+}
+
+
+
+
+; Напишите две процедуры: BuyFries() и BuyCola() для покупки соответствующего блюда.
+;  На вход каждой из процедур подаётся размер в виде строки: S, M или L, а вывести нужно
+;  Картошка фри будет стоить *количество* рублей или Кола будет стоить *количество* рублей.
+package main
+
+import "fmt"
+
+func BuyFries(size string) string {
+	var result string
+
+	switch size {
+	case "S":
+		result = "Картошка фри будет стоить 49 рублей"
+		fmt.Println(result)
+
+	case "M":
+		result = "Картошка фри будет стоить 89 рублей"
+		fmt.Println(result)
+
+	case "L":
+		result = "Картошка фри будет стоить 99 рублей"
+		fmt.Println(result)
+	default:
+		result = "Некорректный размер"
+		fmt.Println(result)
+	}
+	return result
+}
+
+func BuyCola(size string) string {
+	var result string
+	switch size {
+	case "S":
+		result = "Кола будет стоить 99 рублей"
+		fmt.Println(result)
+	case "M":
+		result = "Кола будет стоить 119 рублей"
+		fmt.Println(result)
+
+	case "L":
+		result = "Кола будет стоить 139 рублей"
+		fmt.Println(result)
+	default:
+		result = "Некорректный размер"
+		fmt.Println(result)
+
+	}
+	return result
+}
+func printPrice(money int, product string) {
+
+	fmt.Printf("%s будет стоить %d рублей\n", product, money)
+}
+
+
+; рекурсия 
+package main
+
+import "fmt"
+
+func factorial(n int) int {
+	// Крайний случай
+	if n == 0 {
+		return 1
+	}
+
+	// Вызов функции с текущим значением, умноженным на результат (n - 1)
+	return n * factorial(n-1)
+}
+
+func main() {
+	result := factorial(5)
+	fmt.Println(result)
+}
+package main
+
+import "fmt"
+
+func fib(n int) int {
+	// Крайний случай, так как при f(1) и далее мы не сможем посчитать обе следующих итерации
+	if n < 2 {
+		return n
+	}
+
+	return fib(n-1) + fib(n-2)
+}
+
+func main() {
+	fmt.Println(fib(50)) // Вывод: 8
+}
+
+
+
+
+; В теории мы приводили пример кода, который не работает из-за области
+;  видимости переменных:
+
+; package main
+
+; import "fmt"
+
+; func myFunc() {
+;     // Задаём переменную
+;     a := 1
+; }
+
+; func main() {
+;     // Вызываем переменную
+;     myFunc()
+    
+;     // Пробуем вывести переменную из функции myFunc в консоль
+;     fmt.Println(a)
+; }
+; Пришло время работы над ошибками! Напишите программу,
+;    в которой есть функция myFunc с переменной a,
+;    равной 1. Вызовите функцию в main и выведите
+;    в консоль значение её переменной.
+
+; Формат ввода
+; Функции myFunc и main
+
+; Формат вывода
+; 1
+package main
+
+import "fmt"
+
+var a int
+
+func myFunc() {
+	// Задаём переменную
+	a = 1
+}
+
+func main() {
+	// Вызываем переменную
+	myFunc()
+
+	// Пробуем вывести переменную из функции myFunc в консоль
+	fmt.Println(a)
+}
+
+
+
+
+
+;  квадратного уравнения. Для этого напишите функцию
+;  SquareRoots(a, b, c float64) (float64, float64),
+;  которая получает на вход три коэффициента квадратного уравнения
+;  и возвращает его корни по возрастанию (если корень один, то два
+;  одинаковых числа) или два числа 0, если корней нет. Для вычисления
+;  дискриминанта напишите вспомогательную функцию findDiscriminant так,
+;  как это сделано на занятии.
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func SquareRoots(a, b, c float64) (float64, float64) {
+	discriminant := findDiscriminant(a, b, c)
+	var xOne float64
+	var xTwo float64
+	if discriminant < 0 {
+		return 0, 0
+	}
+	xOne = (-b - math.Sqrt(discriminant)) / (2 * a)
+	xTwo = (-b + math.Sqrt(discriminant)) / (2 * a)
+
+	return xOne, xTwo
+}
+func findDiscriminant(a, b, c float64) float64 {
+	discriminant := math.Pow(b, 2) - 4.0*a*c
+
+	// Возвращаем значения вычисления из findDiscriminant типа float64
+	return discriminant
+}
+func main() {
+	x1, x2 := SquareRoots(1, -3, -2)
+	fmt.Println(x1, x2)
+}
+
+
+
+
+
+
+; Напишите программу, которая проверяет пароль на соответствие
+;  условиям. Для этого реализуйте функцию checkPassword,
+;   которая принимает на вход строку с паролем и возвращает true,
+;    если пароль им соответствует, и false, если нет.
+
+; Для проверки условий реализуйте дополнительную функцию
+;  hasMinimumLength, которая принимает на вход строку с паролем,
+;   минимальную длину пароля и проверяет, длиннее ли пароль
+;   необходимого значения. В функции hasMinimumLength эту проверку
+;   нужно выполнить со значением 8.
+
+; Также реализуйте функцию hasUpper,
+;  которая проверяет, есть ли в пароле хотя бы одна
+;   заглавная буква. Гарантируется, что на вход будут
+;    поданы только латинские буквы.
+
+; Все вспомогательные функции также возвращают true,
+;  если пароль соответствует условию, и false, если нет.
+package main
+
+import (
+	"unicode"
+)
+
+func checkPassword(password string) bool {
+	if hasMinimumLength(password, 8) {
+		return hasUpper(password)
+	}
+	return false
+}
+func hasMinimumLength(password string, lenpassword int) bool {
+	return len(password) >= lenpassword
+}
+func hasUpper(password string) bool {
+	for _, runepass := range password {
+		if unicode.IsUpper(runepass) {
+			return true
+		}
+	}
+	return false
+}
+func main() {
+	fmt.Println(checkPassword("ad3weq3eq"))
+}
+
+
+
+
+
+
+
+; В прошлой задаче вы уже помогли программисту Арсению
+;  написать программу для проверки паролей.
+;   Но этого оказалось мало! Доработайте программу так, 
+;   чтобы она сообщала, насколько хорош предъявленный пароль.
+
+; Реализуйте функции hasUpper и hasMinimumLength из прошлой 
+; задачи и добавьте к ним функцию hasLowerCase, которая проверяет 
+; наличие хотя бы одной строчной буквы, принимая на вход строку с паролем. 
+; Напишите функцию ratePassword, которая использует для проверки функции 
+; hasUpper, hasLowerCase и hasMinimumLength и, в зависимости от 
+; количества успешных проверок, возвращает строку Слабый пароль, 
+; Средний пароль или Сложный пароль (одна, две или три успешные проверки 
+; соответственно). Если успешно не пройдена ни одна из проверок, нужно 
+; вернуть строку: Пароль недостаточно безопасен, придумайте новый.
+package main
+
+import (
+	"fmt"
+	"unicode"
+)
+
+func ratePassword(password string) string {
+	chek := 0
+
+	if hasLowerCase(password) {
+		chek++
+	}
+	if hasMinimumLength(password, 8) {
+		chek++
+	}
+	if hasUpper(password) {
+		chek++
+	}
+
+	switch chek {
+	case 1:
+		return "Слабый пароль"
+	case 2:
+		return "Средний пароль"
+	case 3:
+		return "Сложный пароль"
+	default:
+		return "Пароль недостаточно безопасен, придумайте новый"
+	}
+}
+
+func hasLowerCase(password string) bool {
+	for _, runepass := range password {
+		if unicode.IsLower(runepass) {
+			return true
+		}
+	}
+	return false
+}
+func hasMinimumLength(password string, lenpassword int) bool {
+	return len(password) >= lenpassword
+}
+func hasUpper(password string) bool {
+	for _, runepass := range password {
+		if unicode.IsUpper(runepass) {
+			return true
+		}
+	}
+	return false
+}
+func main() {
+	fmt.Println(ratePassword("SDSdfgDSw2"))
+}
+
+
+
+
+// ERROR //
+
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	ErrDivisionByZero = errors.New("division by zero")
+)
+
+func divide(a, b float64) (float64, error) {
+	if b == 0 {
+		return 0, ErrDivisionByZero
+	}
+	return a / b, nil
+}
+
+func main() {
+	result, err := divide(10, 0)
+	if err != nil { // Проверка, что err не равно nil (в функции divide произошла ошибка)
+		fmt.Println("Ошибка:", err)
+		return
+	}
+	fmt.Println("Результат:", result)
+}
+
+
+package main
+
+import (
+	"os"
+)
+
+func createFile(filename string, data []byte) error {
+	f, err := os.Create(filename) // Создание файла с помощью покета os
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	_, err = f.Write(data) // Запись данных в файл
+	if err != nil {
+		f.Close()
+		return err
+	}
+
+	err = f.Close() // Закрытие файла
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+func main() {
+	createFile("kris", []byte("impaka"))
+}
+
+
+
+package main
+
+import "fmt"
+
+func exampleFunction() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Recovered from panic:", r)
+		}
+	}()
+
+	// Какой-то код, в котором может возникнуть паника
+}
+
+
+
+
+
+
+
+
+; Программист Арсений написал небольшую программу, которая запрашивает у пользователя персональные данные:
+
+; package main
+
+; import "fmt"
+
+; func main() {
+;     var age int
+;     var name string
+;     var passportSeriesAndNumber string
+    
+;     fmt.Scanln(&age, &name, &passportSeriesAndNumber)
+    
+;     fmt.Println(fmt.Sprintf("Имя: %s. Возраст: %d. Серия и номер паспорта: %s", name, age, passportSeriesAndNumber))
+; }
+; Но пользователи постоянно ошибаются: то про имя забудут,
+;  то возраст введут невалидный. Помогите Арсению и доработайте эту программу.
+
+; Если происходит ошибка в функции Scan,
+;  нужно вывести: Ошибка: некорректный ввод. 
+;  Если возраст меньше 14 или больше 150, нужно вывести: Ошибка: 
+;  невалидный возраст (нижняя граница 14, потому что паспорт в 
+;  России выдают с 14 лет). 
+;  Если имя короче двух символов, нужно вывести: Ошибка: невалидное имя.
+package main
+
+import "fmt"
+
+func main() {
+	var age int
+	var name string
+	var passportSeriesAndNumber string
+
+	if _, err := fmt.Scanln(&age, &name, &passportSeriesAndNumber); err != nil {
+		fmt.Println("Ошибка: некорректный ввод")
+		return
+	} else if age < 14 || age > 150 {
+		fmt.Println("Ошибка: невалидный возраст")
+		return
+	} else if len(name) < 2 {
+		fmt.Println("Ошибка: невалидное имя")
+		return
+	} else if len(passportSeriesAndNumber) != 10 {
+		fmt.Println("Ошибка: невалидная серия и номер паспорта")
+		return
+	}
+	fmt.Println(fmt.Sprintf("Имя: %s. Возраст: %d. Серия и номер паспорта: %s",
+		name,
+		age,
+		passportSeriesAndNumber,
+	),
+	)
+}
+
+
+
+
+; Напишите функцию Divide(a, b int) (float64, error), 
+; которая получает два целых числа и выводит результат их деления. 
+; Если делитель равен нулю, функция должна вернуть в качестве 
+; ответа 0 и сообщение об ошибке (division by zero is not allowed). 
+; Если второе число не равно нулю, верните в качестве ошибки nil. 
+; Ошибку нужно вынести в переменную: DivisionByZeroError.
+
+; Формат ввода
+; Функция Divide(a, b int) (float64, error)
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	DivisionByZeroError = errors.New("division by zero is not allowed")
+)
+
+func Divide(a, b int) (float64, error) {
+	if b != 0 {
+
+		return float64(a) / float64(b), nil
+	}
+	return 0, DivisionByZeroError
+}
+
+func main() {
+	res, err := Divide(1232, 12)
+	fmt.Println(res, err)
+}
+
+
+
+
+
+
+
+
+
+
+
+; Реализуйте функции:
+
+; topUpBalance(amount float64) error, которая увеличивает баланс 
+; на amount
+; chargeFromBalance(amount float64) error, которая уменьшает 
+; баланс на amount
+; TopUpAndGetBalance(amount float64) (float64, error) и 
+; ChargeFromAndGetBalance(amount float64) (float64, error), 
+; которые вызывают соответствующие функции и возвращают итоговый 
+; баланс
+; Баланс должен быть равен нулю (в начале работы программы) и 
+; храниться в глобальной переменной Balance.
+
+; Во всех функциях нужно возвращать итоговый баланс и/или ошибку 
+; в случае её возникновения:
+
+; если ошибка в неправильном значении amount — ошибку 
+; amount is incorrect
+; если некорректен итоговый баланс при выводе из функций 
+; TopUpAndGetBalance или ChargeFromAndGetBalance — ошибку 
+; balance is incorrect
+; Формат ввода
+; Функции topUpBalance(amount float64) error, 
+; chargeFromBalance(amount float64) error, 
+; TopUpAndGetBalance(amount float64) (float64, error) и 
+; ChargeFromAndGetBalance(amount float64) (float64, error)
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	AmountIsIncorrect  = errors.New("amount is incorrect")
+	BalanceIsIncorrect = errors.New("balance is incorrect")
+)
+var (
+	Balance float64
+)
+
+func topUpBalance(amount float64) error {
+	if amount > 0 &package main
+
+import "fmt"
+
+func PrintComplexNumber(z complex64) {
+	fmt.Printf("Действительная часть:%.2f. ", real(z))
+	fmt.Printf("Мнимая часть:%.2f", imag(z))
+}& amount != 0 {
+		Balance += amount
+		return nil
+	}
+	return AmountIsIncorrect
+}
+func chargeFromBalance(amount float64) error {
+	if (Balance >= amount && amount != 0) && amount > 0 {
+		Balance -= amount
+		return nil
+	}
+	return AmountIsIncorrect
+
+}
+func TopUpAndGetBalance(amount float64) (float64, error) {
+	if err := topUpBalance(amount); err != nil {
+		return 0, err
+	} else if Balance < 0 {
+		return 0, BalanceIsIncorrect
+	}
+	return Balance, nil
+}
+func ChargeFromAndGetBalance(amount float64) (float64, error) {
+	if err := chargeFromBalance(amount); err != nil {
+		return 0, err
+	} else if Balance < 0 {
+		return 0, BalanceIsIncorrect
+	}
+	return Balance, nil
+}
+func main() {
+	fmt.Println(TopUpAndGetBalance(99999))
+	fmt.Println(Balance)
+
+	fmt.Println(topUpBalance(-100))
+	fmt.Println(topUpBalance(0))
+	fmt.Println(chargeFromBalance(0))
+	fmt.Println(chargeFromBalance(-1000))
+	fmt.Println(TopUpAndGetBalance(-100))
+	fmt.Println(TopUpAndGetBalance(0))
+	fmt.Println(ChargeFromAndGetBalance(0))
+	fmt.Println(ChargeFromAndGetBalance(-1000))
+
+	Balance -= 100000000
+	fmt.Println(TopUpAndGetBalance(1))
+}
+
+
+
+
+
+; Помогите Арсению найти в тексте все буквы е и проверить, 
+; не нужно ли заменить их на ё. Напишите функцию 
+; CheckLetters(text string) string, которая проверяет текст на 
+; наличие букв е. Если их нет, нужно вернуть: Текст готов к 
+; публикации!, в ином случае: Количество возможных ошибок: 
+; *число, количество букв е*, перепроверьте текст.
+
+; Формат ввода
+; Функция CheckLetters(text string) string
+
+; Примечания
+; Для решения этой задачи вам нужно самостоятельно найти 
+; подходящие функции пакета strings.
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func CheckLetters(text string) string {
+	count := strings.Count(text, "е")
+	if count == 0 {
+		return "Текст готов к публикации!"
+	}
+	return fmt.Sprintf("Количество возможных ошибок: %d, перепроверьте текст", count)
+}
+func main() {
+	res := CheckLetters(" привет как дела")
+	fmt.Println(res)
+}
+
+
+
+
+
+Помогите ему и напишите процедуру PrintComplexNumber(z complex64), 
+которая получает на вход комплексное число и выводит 
+Действительная часть: *число*. Мнимая часть: *число*. 
+Обе части должна быть округлены до двух знаков после запятой.
+
+Формат ввода
+Процедура PrintComplexNumber(z complex64)
+
+Формат вывода
+Строка
+
+
+
+
+
+
+
+
+
+
+
+
+
+; Программист Арсений так увлекается кодингом на Go, что совсем не следит за временем. День от ночи он ещё более-менее отличает, когда изредка выглядывает в окно, но определять дату на глаз у него не получается.
+
+; Помогите ему и напишите программу, которая поможет разработчику быстро сориентироваться во времени.
+
+; Для этого реализуйте такие функции:
+
+; currentDayOfTheWeek() string, 
+; которая возвращает текущий день недели 
+; (Понедельник, Вторник, Среда, Четверг, Пятница, Суббота, Воскресенье)
+
+; dayOrNight() string, которая возвращает, 
+; День сейчас или Ночь. 
+; День для программы начинается в 10 утра, а заканчивается в 22 вечера включительно 
+; (Арсений, как и многие другие программисты, — сова)
+
+;  nextFriday() int, 
+; которая вычисляет, сколько дней до следующей пятницы, 
+; включая сегодняшний день (если сегодня пятница, то 0). 
+; Арсений с нетерпением ждёт выходных, чтобы наконец выбраться на улицу
+
+;  CheckCurrentDayOfTheWeek(answer string) bool, 
+; которая проверяет, знает ли Арсений, какой сейчас день недели. 
+; Она должна принимать строку с предположением Арсения и выводить true, 
+; если Арсений угадал, и false в ином случае. Регистр ввода учитывать не нужно: 
+; Понедельник, понедельник и ПОНЕДЕЛЬНИК должны возвращать true 
+; (если, конечно, сегодня действительно понедельник)
+
+;  CheckNowDayOrNight(answer string) (bool, error), 
+; которая проверяет, знает ли Арсений, день сейчас или ночь. 
+; Она должна принимать строку с предположением Арсения и выводить true или false. 
+; Регистр также учитывать не нужно. Если на вход подана строка длиной больше 
+; или меньше четырёх символов, нужно возвращать пустую строку и ошибку: 
+; исправь свой ответ, а лучше ложись поспать
+
+; Чтобы получить текущее время, используйте функцию TimeNow(). 
+; Она вернёт время в формате time.Time. Саму функцию TimeNow реализовывать не нужно.
+
+; Формат ввода
+; Функции currentDayOfTheWeek() string, dayOrNight() string, nextFriday() int, 
+; CheckCurrentDayOfTheWeek(answer string) bool и СheckNowDayOrNight(answer string) 
+; (bool, error)
+
+; Примечания
+; Все ошибки нужно корректно обрабатывать и возвращать их или nil. В 
+; разработке вам поможет официальная документация. Д
+; ля проверки длины строки используйте функцию utf8.RuneCountInString().
+
+; Обратите внимание, что в условии нужно использовать именно функцию TimeNow(). 
+; Эта функция никак не связана с реальным временем ученика.
+package main
+
+import (
+	"errors"
+	"fmt"
+	"strings"
+	"time"
+	"unicode/utf8"
+)
+
+var (
+	AnswerInvalid = errors.New("исправь свой ответ, а лучше ложись поспать")
+)
+
+func currentDayOfTheWeek() string {
+	days := map[time.Weekday]string{
+		time.Monday:    "Понедельник",
+		time.Tuesday:   "Вторник",
+		time.Wednesday: "Среда",
+		time.Thursday:  "Четверг",
+		time.Friday:    "Пятница",
+		time.Saturday:  "Суббота",
+		time.Sunday:    "Воскресенье",
+	}
+
+	now := TimeNow()
+	return days[now.Weekday()]
+}
+
+func dayOrNight() string {
+	now := TimeNow()
+	hour := now.Hour()
+
+	if hour >= 10 && hour <= 22 {
+		return "День"
+	}
+	return "Ночь"
+}
+
+func nextFriday() int {
+	now := TimeNow()
+	today := now.Weekday()
+	friday := time.Friday
+
+	if today <= friday {
+		return int(friday - today)
+	}
+	return int(7 - (today - friday))
+}
+
+func CheckCurrentDayOfTheWeek(answer string) bool {
+	answer = strings.ToLower(answer)
+	return strings.ToLower(currentDayOfTheWeek()) == answer
+}
+
+func CheckNowDayOrNight(answer string) (bool, error) {
+	answer = strings.ToLower(answer)
+
+	if utf8.RuneCountInString(answer) != 4 {
+		return false, AnswerInvalid
+	}
+
+	if answer == strings.ToLower(dayOrNight()) {
+		return true, nil
+	}
+
+	return false, nil
+}
+
+func main() {
+	fmt.Println(currentDayOfTheWeek())
+	fmt.Println(dayOrNight())
+	fmt.Println(nextFriday())
+}
+func TimeNow() time.Time {
+	return time.Now()
+}

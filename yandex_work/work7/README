@@ -1,0 +1,1034 @@
+package main
+
+import "fmt"
+
+func main() {
+	name := "異體字"
+	firstLetter := []rune(name)[0] // Конвертируем строку в слайс рун
+	// И с помощью [0] забираем первый элемент
+	fmt.Println(firstLetter)         // Вывод: 30064
+	fmt.Println(string(firstLetter)) // Вывод: 異
+}
+
+
+
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+	words := []string{"Это", "несколько", "слов"}
+	joined := strings.Join(words, " ")
+	fmt.Println(joined) // Вывод: Это несколько слов
+}
+
+
+
+
+
+
+
+; Напишите функцию CountLengthAndBytes(first, second string) string, 
+; которая считает общее количество символов (рун) в двух строках и их суммарное 
+; количество байт.
+
+; На выход программа должна вернуть 
+; строку: Объединённая строка: *объединённая строка из двух входных строк*. 
+; Количество байт: *число байт*. 
+; Количество символов: *число символов*.
+
+; Формат ввода
+; Функция CountLengthAndBytes(first, second string) string
+package main
+
+import "fmt"
+
+func CountLengthAndBytes(first, second string) string {
+	lenRune := len([]rune(first)) + len([]rune(second))
+	len := len(first) + len(second)
+	unification := first + second
+
+	return fmt.Sprintf("Объединённая строка: %s. Количество байт: %d. Количество символов: %d.",
+		unification,
+		len,
+		lenRune,
+	)
+}
+func main() {
+	res := CountLengthAndBytes("привет", "мир")
+	fmt.Println(res)
+}
+
+
+
+
+
+
+
+; Программист Арсений любит ASCII и терпеть не может другие виды кодировок.
+
+; Напишите функцию CheckOnlyASCII(s string) bool, которая проверяет, 
+; символы какой кодировки содержатся в строке, и возвращает true, 
+; если все они в ASCII, а false, если нет.
+
+; Формат ввода
+; Функция CheckOnlyASCII(s string) bool
+
+; Примечания
+; Для выполнения этой задачи вам поможет unicode.MaxASCII.
+package main
+
+import (
+	"fmt"
+	"unicode"
+)
+
+func CheckOnlyASCII(s string) bool {
+	for _, sRune := range s {
+		if sRune > unicode.MaxASCII {
+			return false
+		}
+	}
+
+	return true
+}
+
+func main() {
+	fmt.Println(CheckOnlyASCII("Hello, Yandex!"))
+	fmt.Println(CheckOnlyASCII("1 + 2 * 34 / 78"))
+	fmt.Println(CheckOnlyASCII("~"))
+	fmt.Println(CheckOnlyASCII(""))
+}
+
+
+
+
+
+
+
+
+
+
+
+; Помогите им и напишите функцию NumbersToLetters(input string) string, 
+; которая получает на вход пример в виде цифр и арифметических знаков, 
+; заменяет их на слова и возвращает. Замена должна происходить так:
+package main
+
+import "fmt"
+
+func NumbersToLetters(input string) string {
+	numWord := map[string]string{
+		"0": "ноль",
+		"1": "один",
+		"2": "два",
+		"3": "три",
+		"4": "четыре",
+		"5": "пять",
+		"6": "шесть",
+		"7": "семь",
+		"8": "восемь",
+		"9": "девять",
+		"+": "плюс",
+		"-": "минус",
+		"*": "умножить на",
+		"/": "разделить на",
+	}
+	var wordExample string
+	for _, inpRune := range input {
+		if _, ok := numWord[string(inpRune)]; ok {
+			wordExample += numWord[string(inpRune)]
+			continue
+		}
+		wordExample += string(inpRune)
+	}
+	return wordExample
+}
+
+func main() {
+	res := NumbersToLetters("(1 + 2) * 3 / 8")
+	fmt.Println(res)
+}
+
+
+
+// МАССИВЫ // 
+package main
+
+import "fmt"
+
+func main() {
+	candies := [5]string{"шоколадная", "ванильная", "клубничная", "карамельная", "лимонная"} // Инициализация массива конфет
+	var sum int
+
+	for i := 0; i < len(candies); i++ {
+		// Съедаем конфету и добавляем её в сумму
+		fmt.Println("Я съел конфету вкуса", candies[i])
+		sum++
+	}
+
+	fmt.Println("Я съел", sum, "конфет")
+}
+
+
+
+
+
+; Напишите функцию FiveSteps(array [5]int) [5]int, 
+; которая принимает массив из пяти целочисленных элементов. 
+; Программа должна возвращать значения элементов массива в обратном порядке.
+
+; Формат ввода
+; Функция FiveSteps(array [5]int) [5]int
+package main
+
+import "fmt"
+
+func FiveSteps(array [5]int) [5]int {
+	recive := [5]int{}
+	var z int
+	for i := len(array) - 1; i >= 0; i-- {
+
+		recive[z] = array[i]
+		z++
+	}
+	return recive
+}
+
+func main() {
+	array := [5]int{1, 2, 3, 4, 5}
+	fmt.Println(FiveSteps(array), array)
+}
+
+
+
+
+
+
+
+
+
+; Напишите функцию ThirdElementInArray(array [6]int) int, 
+; которая получает массив из шести целочисленных элементов 
+; (пусть это будут номера игроков на форме) и возвращает 
+; третий по счёту элемент массива.
+
+; Формат ввода
+; Функция ThirdElementInArray(array [6]int) 
+func ThirdElementInArray(array [6]int) int {
+	return array[2]
+
+}
+
+
+
+
+
+
+
+; Программист Арсений разочаровался в астрологии, 
+; потому что ни одно из его предсказаний не сбылось. 
+; Теперь вместо гадания по звёздам он пользуется генератором случайных чисел, 
+; чтобы создавать предсказуемые случайности. Воспользуйтесь им и напишите 
+; функцию FindMaxMinInArray(array [10]int) (int, int), которая 
+; получает массив из десяти случайных целочисленных значений, 
+; находит максимальное и минимальное значения в массиве и возвращает их.
+
+; Формат ввода
+; Функция FindMaxMinInArray(array [10]int) (int, int)
+package main
+
+import "fmt"
+
+func FindMaxMinInArray(array [10]int) (int, int) {
+	var max int
+	var min int
+	for i, v := range array {
+		if i == 0 {
+			max = v
+			min = v
+			continue
+		} else if max < v {
+			max = v
+		} else if min > v {
+			min = v
+		}
+	}
+	return max, min
+}
+
+func main() {
+	array := [10]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	fmt.Println(FindMaxMinInArray(array))
+}
+
+
+
+
+
+
+
+
+
+
+; Напишите функцию SumOfArray(array [6]int) int, которая получает 
+; массив из шести целочисленных элементов и возвращает их сумму.
+
+; Формат ввода
+; Функция SumOfArray(array [6]int) int
+
+; Примечания
+; Например, если передать функции SumOfArray(array [6]int) int 
+; массив [1 2 3 4 5 6], она должна вернуть число 21.
+package main
+
+import "fmt"
+
+func SumOfArray(array [6]int) int {
+	var result int
+
+	for _, v := range array {
+		result += v
+	}
+	return result
+}
+
+func main() {
+	array := [6]int{1, 2, 3, 4, 5, 6}
+	fmt.Println(SumOfArray(array))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+; Напишите функцию PrettyArrayOutput(array [9]string), 
+; которая получает массив из девяти строк и печатает: 
+; 1 я уже сделал: *элемент массива* для первых 7 элементов и 
+; 9 не успел сделать: *элемент массива* для последних двух. 
+; У строчки должен быть именно такой вид — без кавычек, 
+; а вместо *элемент массива* сам элемент. Первая цифра — это номер 
+; по порядку, нумерация с единицы.
+
+; Формат ввода
+; Функция PrettyArrayOutput(array [9]string)
+package main
+
+import "fmt"
+
+func PrettyArrayOutput(array [9]string) {
+	for i, v := range array {
+		if i < 7 {
+			fmt.Printf("%d я уже сделал: %s\n", i+1, v)
+			continue
+		}
+		fmt.Printf("%d не успел сделать: %s\n", i+1, v)
+	}
+}
+
+func main() {
+	input := [9]string{
+		"проснуться",
+		"позавтракать",
+		"сходить в школу",
+		"пообедать",
+		"погулять с друзьями",
+		"сделать домашнюю работу",
+		"попрограммировать на Go",
+		"поужинать",
+		"лечь спать",
+	}
+	PrettyArrayOutput(input)
+}
+
+
+
+
+;// СЛАЙСЫ //
+
+type slice struct {
+	array unsafe.Pointer // Указатель на элемент массива, с которого начинается слайс
+	len   int            // Длина
+	cap   int            // Ёмкость
+}
+
+
+Позднее вы познакомитесь со структурами подробнее, а пока вам достаточно знать, что это тип данных, который объединяет несколько переменных. В самом слайсе элементов массива нет, но есть ссылка на его конкретный участок (переменная array). Слайс — это именно надстройка над массивом. Так, например, слайс от слайса будет вести на исходный массив, а не на слайс.
+
+
+Рассмотрим вот такой код:
+
+a := [5]int{0, 1, 1, 2, 3} // Объявляем массив a из пяти элементов
+b := a[:] // В переменную b присваиваем слайс всего массива
+c := b[:] // В переменную c присваиваем слайс всего слайса
+
+c[0] = 42
+
+fmt.Println(a) // [42 1 1 2 3]
+fmt.Println(b) // [42 1 1 2 3]
+fmt.Println(c) // [42 1 1 2 3]
+
+
+intSlice := []int{4, 5, 2, 1, 3, 9, 7, 8, 6}
+fmt.Println(sort.IntsAreSorted(intSlice)) // Проверим, отсортирован ли слайс
+sort.Ints(intSlice)	// Сама сортировка
+fmt.Println(intSlice) // [1 2 3 4 5 6 7 8 9]
+Заодно давайте рассмотрим сортировку строк в алфавитном порядке:
+
+stringSlice := []string{"Go", "Bravo", "Gopher", "YaLyceum", "Alpha", "Grin", "Delta"}
+sort.Strings(stringSlice) // Сортировка уже для строк
+fmt.Println(stringSlice) // [Alpha Bravo Delta Go Gopher Grin YaLyceum]
+
+
+
+
+
+
+
+; Дан слайс целых чисел nums. 
+; Ёмкость этого слайса больше его длины. 
+; Создайте функцию SliceCopy(nums []int) []int, 
+; которая вернёт новый слайс с длиной и ёмкостью, равной длине nums. 
+; Скопируйте в него значения из исходного слайса.
+
+; Формат ввода
+; Функция SliceCopy(nums []int) []int
+package main
+
+func SliceCopy(nums []int) []int {
+	return make([]int, len(nums))
+}
+
+
+
+; Даны два слайса целых чисел nums1 и nums2. 
+; Напишите функцию Join(nums1, nums2 []int) []int, 
+; которая создаст новый слайс с ёмкостью в два слайса 
+; (ёмкость должна быть равна его длине). 
+; Скопируйте в него сначала значения nums1, затем nums2 и верните.
+
+; Формат ввода
+; Функция Join(nums1, nums2 []int) []int
+package main
+
+import "fmt"
+
+func Join(nums1, nums2 []int) []int {
+	newSlice := make([]int, len(nums1)+len(nums2))
+	copy(newSlice, nums1)
+	copy(newSlice[len(nums1):], nums2)
+	return newSlice
+}
+func main() {
+	nums1 := [5]int{1, 1, 1, 1, 1}
+	nums2 := [5]int{0, 1, 1, 2, 3}
+	fmt.Println(Join(nums1[:], nums2[:]))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+; Дан слайс nums из 2n элементов в формате [x0,x1,...,xn,y0,y1,...,yn]. 
+; Создайте функцию Mix(nums []int) []int, 
+; которая вернёт слайс со значениями в таком порядке: 
+; [x0,y0,x1,y1,...,xn,yn].
+
+; Формат ввода
+; Функция Mix(nums []int) []int
+package main
+
+import "fmt"
+
+func Mix(nums []int) []int {
+	result := make([]int, len(nums))
+	mid := len(nums) / 2
+	x := 0
+	y := mid
+	for i := range nums {
+		if i%2 == 0 {
+			result[i] = nums[x]
+			x++
+		} else {
+			result[i] = nums[y]
+			y++
+		}
+	}
+	return result
+}
+func main() {
+	nums := []int{1, 2, 3, 4, 10, 20, 30, 40}
+	fmt.Println(Mix(nums))
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+; Напишите программу, которая на основе неотсортированного слайса целых чисел 
+; (цен на одежду) выводит первые n (либо меньше, если остальные не подходят) 
+; элементов, которые меньше 
+; limit (суммы, которую Арсений выделил на шоппинг). 
+; Для этого напишите функцию 
+; UnderLimit(nums []int, limit int, n int) ([]int, error), 
+; которая будет возвращать первые n (либо меньше, если остальные не подходят) 
+; элементов, которые меньше limit. В случае ошибки функция должна вернуть 
+; nil и описание ошибки.
+
+; Формат ввода
+; Функция UnderLimit(nums []int, limit int, n int) ([]int, error)
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	NotFound = errors.New("the required item was not found")
+)
+
+func UnderLimit(nums []int, limit int, n int) ([]int, error) {
+	if nums == nil {
+		return nil, errors.New("nums is nil")
+	}
+	if n < 0 {
+		return nil, errors.New("n is negative")
+	}
+
+	result := []int{}
+
+	for _, v := range nums {
+		if v < limit {
+			result = append(result, v)
+			if len(result) == n {
+				return result, nil
+			}
+		}
+	}
+
+	return result, nil
+}
+
+func main() {
+	nums := []int{100, 50, 200, 30, 400}
+	res, err := UnderLimit(nums, 150, 2)
+
+	fmt.Println(res, err)
+}
+
+
+
+
+
+
+
+
+
+
+; // MAP //
+package main
+
+import "fmt"
+
+func containsDuplicate(nums []int) bool {
+	arrLen := len(nums)
+	for i := 0; i < arrLen; i++ { // Перебираем все индексы исходного массива
+		for j := i + 1; j < arrLen; j++ { // Перебираем все индексы после i (чтобы не перебирать повторяющиеся варианты)
+			if nums[i] == nums[j] {
+				return true // Дубликат найден
+			}
+		}
+	}
+
+	return false // После полной проверки дубликат не найден
+}
+
+func main() {
+	numbers := []int{1, 2, 3, 4, 5, 1} // Пример входных данных
+	fmt.Println(containsDuplicate(numbers))
+}
+
+
+
+
+
+
+
+package main
+
+import "fmt"
+
+func containsDuplicate(nums []int) bool {
+	set := make(map[int]bool)
+	for _, num := range nums {
+		if _, ok := set[num] ; ok { // Если такой ключ уже есть, переходим к return
+			return true
+		}
+		set[num] = true
+	}
+	return false
+}
+
+func main() {
+	numbers := []int{1, 2, 3, 4, 5, 1} // Пример входных данных
+	fmt.Println(containsDuplicate(numbers))
+}
+
+
+
+
+
+
+
+
+
+Также важно уточнить, 
+что мапы не гарантируют порядок обхода. 
+Это значит, что при переборе всех значений мапы 
+последовательность конкретного ключа и значения будет 
+каждый раз в произвольном порядке.
+package main
+
+import "fmt"
+
+func main() {
+	var marks = map[string]int{"Arseniy": 4, "Polina": 5}
+	
+	fmt.Println(marks) // map[Arseniy:4 Polina:5]
+	delete(marks, "Arseniy")
+	fmt.Println(marks) // map[Polina:5]
+}
+
+
+
+
+
+
+
+
+Нужно написать функцию, которая подсчитывает количество повторений каждого числа в списке и сохраняет результат в виде мапы, где ключ — число из списка, а значение — количество его повторений:
+package main
+
+import (
+    "fmt"
+)
+
+func countOccurrences(nums []int) map[int]int {
+    occurrences := make(map[int]int)
+
+    for _, num := range nums {
+        occurrences[num]++
+    }
+
+    return occurrences
+}
+
+func main() {
+    numbers := []int{1, 2, 3, 2, 1, 3, 4, 5, 4, 1}
+    result := countOccurrences(numbers)
+
+    fmt.Println("Результат подсчёта повторений:")
+    for num, count := range result {
+        fmt.Printf("%d встречается %d раз(а)\n", num, count)
+    }
+}
+
+
+
+
+
+
+
+
+У нас есть мапа, где ключи — идентификаторы студентов (целые числа), а значения — их имена. Нам нужно написать функцию, которая принимает идентификатор студента и мапу студентов и возвращает имя студента, если он найден, и сообщение об ошибке, если студента с таким ID нет:
+
+package main
+
+import (
+    "fmt"
+)
+
+func findStudentByID(id int, students map[int]string) (string, error) {
+    name, found := students[id]
+    if !found {
+        return "", fmt.Errorf("студент с ID %d не найден", id)
+    }
+
+    return name, nil
+}
+
+func main() {
+    students := map[int]string{
+        1: "Иванов",
+        2: "Петров",
+        3: "Сидоров",
+    }
+
+    id := 2
+    name, err := findStudentByID(id, students)
+    if err != nil {
+        fmt.Println(err)
+    } else {
+        fmt.Printf("Студент с ID %d: %s\n", id, name)
+    }
+}
+
+
+
+
+
+
+; Напишите функцию FindMaxKey(m map[int]int) int, 
+; которая принимает мапу и возвращает значение наибольшего ключа.
+
+; Формат ввода
+; Функция FindMaxKey(m map[int]int) int
+
+; Примечания
+; Например, если передать функции 
+; FindMaxKey(m map[int]int) int мапу [10:37 3:19], 
+; она должна вернуть число 10.
+package main
+
+import "fmt"
+
+func FindMaxKey(m map[int]int) int {
+	var res int
+	var ferstFlag bool
+	for k := range m {
+		if ferstFlag == false {
+			res = k
+		}
+		if res < k {
+			res = k
+		}
+		ferstFlag = true
+	}
+	return res
+}
+func main() {
+	m := map[int]int{
+		-7: 1,
+		-1: 38,
+	}
+	fmt.Println(FindMaxKey(m))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+; Напишите функцию SumOfValuesInMap(m map[int]int) int, 
+; которая возвращает сумму значений в мапе.
+
+; Формат ввода
+; Функция SumOfValuesInMap(m map[int]int) int
+
+; Примечания
+; Например, если передать функции 
+; SumOfValuesInMap(m map[int]int) int мапу [10:38 3:19], 
+; она должна вернуть число 57.
+package main
+
+import "fmt"
+
+func SumOfValuesInMap(m map[int]int) int {
+	var result int
+	for _, v := range m {
+		result += v
+	}
+	return result
+}
+func main() {
+	m := map[int]int{10: 38, 3: 19}
+	fmt.Println(SumOfValuesInMap(m))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+; На телефоне Арсения сохранено множество контактов, от коллег из офиса до Бенедикта Камбербэтча (как Арсений раздобыл его номер?). Сейчас телефонная книга устроена так: каждой фамилии (или имени, или нику) соответствует номер. Арсений хочет запрограммировать обратную структуру: сначала номер, потом фамилия.
+
+; Напишите функцию 
+; SwapKeysAndValues(m map[string]string) map[string]string, 
+; которая принимает мапу и возвращает новую, в которой ключи и 
+; значения поменялись местами.
+
+; Формат ввода
+; Функция SwapKeysAndValues(m map[string]string)
+
+; Примечания
+; Например, если передать функции 
+; SwapKeysAndValues(m map[string]string) мапу 
+; [Яндекс:+74957397000 Музей Яндекса:+74991101133], 
+; она должна вернуть мапу 
+; [+74957397000:Яндекс +74991101133:Музей Яндекса].
+package main
+
+import "fmt"
+
+func SwapKeysAndValues(m map[string]string) map[string]string {
+	swapMap := make(map[string]string)
+	for i, v := range m {
+		swapMap[v] = i
+	}
+	return swapMap
+}
+func main() {
+	m := map[string]string{"Яндекс": "+74957397000", "Музей Яндекса": "+74991101133"}
+	fmt.Println(SwapKeysAndValues(m))
+}
+
+
+
+
+
+; Как вы уже знаете, в телефоне Арсения очень много контактов. Он решил найти все повторяющиеся и подсчитать их. Помогите ему найти дубликаты.
+
+; Для этого напишите функцию 
+; CountingSort(contacts []string) map[string]int, 
+; которая принимает слайс строк и возвращает мапу, 
+; где ключ — это элемент слайса, а значение — 
+; количество его повторов.
+
+; Формат ввода
+; Функция CountingSort(contacts []string) map[string]int
+package main
+
+import "fmt"
+
+func CountingSort(contacts []string) map[string]int {
+	sortMap := make(map[string]int)
+	for _, v := range contacts {
+		sortMap[v]++
+	}
+	return sortMap
+}
+func main() {
+	contacts := []string{"Ann", "Bob", "Ann", "Kate", "Bob", "Ann"}
+	result := CountingSort(contacts)
+	fmt.Println(result)
+}
+
+
+
+
+
+
+
+
+
+; Программист Арсений решил почистить свою телефонную книгу от лишних контактов. Напомним, в его списке контактов каждой фамилии (или имени, или нику) соответствует номер телефона. Хитроумный Арсений выяснил, что короткие контакты повторяются чаще всего (почему-то).
+
+; Помогите нашему герою почистить телефонную книгу. 
+; Создайте функцию DeleteLongKeys(m map[string]int) map[string]int, 
+; которая принимает мапу и возвращает новую, в которой 
+; присутствуют только те ключи, длина которых не меньше 6 символов.
+
+; Формат ввода
+; Функция DeleteLongKeys(m map[string]int) map[string]int
+package main
+
+import "fmt"
+
+func DeleteLongKeys(m map[string]int) map[string]int {
+	cleanMap := make(map[string]int)
+	for k, v := range m {
+		if len(k) >= 6 {
+			cleanMap[k] = v
+		}
+	}
+	return cleanMap
+}
+func main() {
+	contacts := map[string]int{"Ann": 12345, "Sergey": 54321, "Bob": 11111, "Vladimir": 22222, "Kate": 33333}
+	cleaned := DeleteLongKeys(contacts)
+	fmt.Println(cleaned)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+; Разработайте программу, которая будет анализировать текст и предоставлять по нему статистические данные. 
+; Для этого напишите функцию AnalyzeText(text string), 
+; которая принимает на вход текст и печатает в консоль такой результат анализа:
+
+; Количество слов: *целое число*
+; Количество уникальных слов: *целое число*
+; Самое часто встречающееся слово: "*строка*" (встречается *целое число* раз)
+; Топ-5 самых часто встречающихся слов:
+; "*строка*": *целое число* раз
+; "*строка*": *целое число* раз
+; "*строка*": *целое число* раз
+; "*строка*": *целое число* раз
+; "*строка*": *целое число* раз
+; Нужно вычислить:
+
+; Количество слов в тексте 
+; (считаем, что все слова в тексте разделяются только пробелами, точками, 
+; запятыми, восклицательным или вопросительным знаками)
+; Количество уникальных слов 
+; (регистр не влияет на уникальность слова, 
+; то есть Привет и привет считаются одним словом)
+; Слово, которое встретилось в тексте больше всего раз (без учёта регистра)
+; Топ-5 самых часто встречающихся слов, по убыванию. 
+; Регистр также учитывать не нужно. Гарантируется, 
+; что в тексте есть хотя бы пять уникальных слов и нет двух 
+; (и более) слов в топе, которые встречаются одинаковое количество раз.
+; Для подсчёта топа самых популярных слов напишите вспомогательную 
+; функцию func getTopWords(wordMap map[string]int, n int) []string, 
+; которая принимает мапу с ключом слов и числом, сколько раз 
+; встречается это слово, а также числом 
+; n — количеством позиций в топе. 
+; Функция должна вернуть слайс с топ-n словами.
+
+; Формат ввода
+; Функции AnalyzeText(text string) и getTopWords(wordMap map[string]int, n int) []string
+package main
+
+import (
+	"fmt"
+	"sort"
+	"strings"
+)
+
+func AnalyzeText(text string) {
+	sliceText, lenText := splitText(text)
+	uniqueMap := unique(sliceText)
+	lenUnique := len(uniqueMap)
+	frequentWord, maxCount := frequentWord(uniqueMap)
+	// Получаем топ‑5
+	top5 := getTopWords(uniqueMap, 5)
+
+	// Красивый вывод
+	fmt.Printf("Количество слов: %d\n", lenText)
+	fmt.Printf("Количество уникальных слов: %d\n", lenUnique)
+	fmt.Printf("Самое часто встречающееся слово: \"%s\" (встречается %d раз)\n", frequentWord, maxCount)
+	fmt.Println("Топ-5 самых часто встречающихся слов:")
+
+	for _, w := range top5 {
+		fmt.Printf("\"%s\": %d раз\n", w, uniqueMap[w])
+	}
+}
+func frequentWord(uniqueMap map[string]int) (string, int) {
+	// Находим самое частое слово
+	var frequentWord string
+	var maxCount int
+	first := true
+	for k, v := range uniqueMap {
+		if first || v > maxCount {
+			frequentWord = k
+			maxCount = v
+			first = false
+		}
+	}
+	return frequentWord, maxCount
+}
+func unique(sliceText []string) map[string]int {
+	uniqueMap := make(map[string]int)
+	for _, word := range sliceText {
+		uniqueMap[word]++
+	}
+	return uniqueMap
+}
+func splitText(text string) ([]string, int) {
+	text = cleanText(text)
+	sliceText := strings.Fields(text)
+	lenText := len(sliceText)
+	return sliceText, lenText
+}
+func cleanText(text string) string {
+	text = strings.ReplaceAll(text, ".", " ")
+	text = strings.ReplaceAll(text, ",", " ")
+	text = strings.ReplaceAll(text, "!", " ")
+	text = strings.ReplaceAll(text, "?", " ")
+	text = strings.ToLower(text)
+	return text
+}
+func getTopWords(wordMap map[string]int, n int) []string {
+	type pair struct {
+		word  string
+		count int
+	}
+
+	// Собираем пары (слово + количество) из мапы
+	pairs := make([]pair, 0, len(wordMap))
+	for w, c := range wordMap {
+		pairs = append(pairs, pair{word: w, count: c})
+	}
+
+	// Сортируем по count по убыванию
+	sort.Slice(pairs, func(i, j int) bool {
+		return pairs[i].count > pairs[j].count
+	})
+
+	// Берём первые n слов
+	if n > len(pairs) {
+		n = len(pairs)
+	}
+	res := make([]string, 0, n)
+	for i := 0; i < n; i++ {
+		res = append(res, pairs[i].word)
+	}
+
+	return res
+}
+
+func main() {
+	testText := "Привет, мир! Как дела? дела"
+	AnalyzeText(testText)
+}

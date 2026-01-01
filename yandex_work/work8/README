@@ -1,0 +1,1177 @@
+package main
+
+import "fmt"
+
+type Student struct {
+    name string
+    age  int
+}
+
+func main() {
+    student1 := Student{name: "vasya", age: 15}
+    student2 := Student{name: "petya", age: 20}
+    student3 := Student{name: "kolya", age: 25}
+    student4 := Student{name: "masha", age: 30}
+    student5 := Student{name: "dasha", age: 35}
+    student6 := Student{name: "sasha", age: 40}
+	
+    fmt.Println(student1)
+    fmt.Println(student2)
+    fmt.Println(student3)
+    fmt.Println(student4)
+    fmt.Println(student5)
+    fmt.Println(student6)
+}
+Выглядит проще, правда? Теперь разберём код построчно.
+
+Объявление структуры выглядит так:
+
+type ИмяСтруктуры struct {
+    // переменные (поля) структуры
+}
+
+
+
+
+
+
+package main
+
+import "fmt"
+
+type Rectangle struct {
+	width  float64
+	height float64
+}
+
+func (r Rectangle) Area() float64 {
+	return r.width * r.height
+}
+
+func (r Rectangle) Scale(factor float64) (float64, float64) {
+	r.width *= factor
+	r.height *= factor
+	return r.width, r.height
+}
+func main() {
+	rect := Rectangle{width: 10, height: 5}
+	area := rect.Area()
+	scaledW, scaledH := rect.Scale(2.0)
+	fmt.Println(scaledW, scaledH, area)
+}
+
+
+
+
+
+
+
+
+
+
+// Арсений задумался: «Какая информация отличает меня от моего друга Артёма? 
+// А нас обоих от других людей?» Наш герой пришел к выводу, 
+// что ключевые различия кроются в имени, возрасте и домашнем адресе.
+
+// Создайте структуру Person с полями name (string), age (int) и address (string). 
+// Запрограммируйте метод PrettyPrint() для этой структуры, который будет 
+// выводить информацию о человеке на экран в таком формате:
+
+// Name: Арсений
+// Age: 20
+// Address: Москва
+// Формат ввода
+package main
+
+import "fmt"
+
+type Person struct {
+	name    string
+	age     int
+	address string
+}
+
+func (p Person) PrettyPrint() {
+	fmt.Printf("Name: %s\nAge: %d\nAddress: %s",
+		p.name,
+		p.age,
+		p.address,
+	)
+}
+
+func main() {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+// Арсений знает себе цену. Он договорился с работодателем, 
+// что со следующего месяца будет получать не только зарплату, 
+// но и регулярные бонусы за успешно выполненные задачи. 
+// Напишите программу для идентификации 
+// Арсения как работника компании.
+
+// Создайте структуру Employee с полями 
+// name (string), position (string), salary (float64) и bonus (float64). 
+// Создайте метод CalculateTotalSalary для этой структуры, 
+// который будет рассчитывать общую зарплату работника (salary + bonus) 
+// по следующему формату:
+
+// Employee: Arseniy
+// Position: backend developer
+// Total Salary: 1000.02
+// Формат ввода
+// Структура Employee с методом CalculateTotalSalary()
+
+// Примечания
+// Обратите внимание, что Total Salary нужно округлять до 2 знаков после запятой.
+package main
+
+import "fmt"
+
+type Employee struct {
+	name     string
+	position string
+	salary   float64
+	bonus    float64
+}
+
+func (e *Employee) CalculateTotalSalary() {
+	fmt.Printf("Employee: %s\nPosition: %s\nTotal Salary: %.2f",
+		e.name,
+		e.position,
+		(e.bonus + e.salary),
+	)
+}
+
+func main() {
+	worker := Employee{name: "kirill", position: "", salary: 120.432, bonus: 4432}
+	worker.CalculateTotalSalary()
+}
+
+
+
+
+
+
+
+
+
+
+
+// Арсений решил помочь Яндекс Лицею автоматизировать сбор статистики 
+// по ученикам, ведь их много, и вручную всех не пересчитаешь. 
+// Нужно понять, кто набрал достаточно баллов для перехода 
+// на следующий модуль, а кто ещё нет. 
+// Помогите Арсению написать такую программу.
+
+// Создайте структуру Student с полями name (string), 
+// solvedProblems — количество решённых задач (int), 
+// scoreForOneTask — количество баллов за одну задачу (float64) и 
+// passingScore — проходной балл в следующий модуль (float64). 
+// Будем считать, что все задачи дают одинаковые баллы.
+
+// Создайте метод IsExcellentStudent для этой структуры, 
+// который возвращает true, если ученик проходит по баллам в 
+// следующий модуль, и false в ином случае.
+
+// Формат ввода
+// Структура Student и метод IsExcellentStudent
+package main
+
+import "fmt"
+
+type Student struct {
+	name            string
+	solvedProblems  int
+	scoreForOneTask float64
+	passingScore    float64
+}
+
+func (s *Student) IsExcellentStudent() bool {
+	if s.scoreForOneTask*float64(s.solvedProblems) >= s.passingScore {
+		return true
+	}
+	return false
+}
+
+func main() {
+	student := Student{name: "Gosha", solvedProblems: 30, scoreForOneTask: 10.0, passingScore: 290.0}
+	fmt.Print(student.IsExcellentStudent())
+}
+
+
+
+// ИНТЕРФЕЙСЫ //
+func SomeFunction(arg interface{}) {
+    // ...
+}
+Так функция SomeFunction сможет принимать значения любого типа, которые затем можно будет обработать внутри неё.
+
+А ещё пустой интерфейс подходит для того, чтобы создавать универсальные типы данных, которые могут хранить значения разных типов. Например, можно создать слайс []interface{} и добавить в него значения разных типов — строку, число и булевое значение:
+
+var values []interface{}
+values = append(values, "hello")
+values = append(values, 42)
+values = append(values, true)
+В Go есть оператор type assertion — он позволяет проверить тип значения, которое хранится в пустом интерфейсе, и привести его к нужному типу.
+
+Синтаксис оператора type assertion выглядит так:
+
+value, ok := x.(T) // T — какой-то тип, здесь неважно, какой 
+В этом примере у переменной x — тип interface{}, и мы хотим проверить, что у значения, которое она хранит, тип T. Если это так, оператор type assertion возвращает значение типа T и значение true. Если у значения другой тип, оператор возвращает нулевое значение типа T и значение false.
+
+Рассмотрим, где можно использовать оператор type assertion. Предположим, у нас есть функция PrintType, которая принимает аргумент типа interface{} и выводит его тип:
+
+package main
+
+import "fmt"
+
+func PrintType(x interface{}) {
+	switch x.(type) {
+	case string:
+		fmt.Println("string")
+	case int:
+		fmt.Println("int")
+	case bool:
+		fmt.Println("bool")
+		
+	default:
+		fmt.Println("unknown")
+	}
+}
+func main() {
+	PrintType("hello") // string
+	PrintType(42)      // int
+	PrintType(true)    // bool
+	PrintType(3.14)    // unknown
+}
+
+
+
+
+
+
+
+
+
+// Арсений решил выложить на офисном полу кафельную мозаику из 
+// геометрических фигур. Для этого нужно сперва рассчитать их площади. 
+// Кстати, не создать ли для этого специальный интерфейс?
+
+// Создайте интерфейс Shape с методом Area() float64, 
+// который будет возвращать площадь фигуры. 
+// Создайте структуры Circle с полем radius (float64) и Rectangle с 
+// полями width (float64) и height (float64), которые будут 
+// реализовывать этот интерфейс.
+
+// Формат ввода
+// Интерфейс Shape с методом Area() float64 и структуры 
+// Circle и Rectangle, реализующие этот интерфейс
+
+// Примечания
+// Вам может пригодиться пакет math.
+package main
+
+import "math"
+
+type Shape interface {
+	Area() float64
+}
+type Circle struct {
+	radius float64
+}
+type Rectangle struct {
+	width  float64
+	height float64
+}
+
+func (c Circle) Area() float64 {
+	return math.Pi * math.Pow(c.radius, 2)
+}
+func (r Rectangle) Area() float64 {
+	return r.width * r.height
+}
+func main() {
+}
+
+
+
+
+
+
+
+
+// «Заведи кота или собаку, будет весело!» — посоветовал Арсению друг. 
+// А Арсений ответил, что лучше их запрограммировать, 
+// и пошёл писать интерфейс.
+
+// Создайте интерфейс Animal с методом MakeSound(), 
+// который будет выводить звук выбранного животного. 
+// Добавьте структуры Dog и Cat, которые будут реализовывать этот 
+// интерфейс и издавать соответствующие звуки (выводить на экран)
+//  — Гав! и Мяу!.
+
+// Формат ввода
+// Интерфейс Animal с методом MakeSound() и структуры Dog и Cat, 
+// которые будут реализовывать этот интерфейс
+package main
+
+import "fmt"
+
+type Animal interface {
+	MakeSound()
+}
+type Dog struct {
+	// voice string
+}
+type Cat struct {
+	// voice string
+}
+
+func (c Cat) MakeSound() {
+	fmt.Println("Мяу!")
+}
+func (d Dog) MakeSound() {
+	fmt.Println("Гав!")
+}
+
+func main() {
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// Команда Арсения получила заказ на большой проект. 
+// Команда уверена в своих силах, но пессимист Арсений заранее 
+// готовит код для записи ошибок и уверяет, что их будет предостаточно. 
+// Поможете ему подготовиться к худшему?
+
+// Создайте интерфейс Logger с методом Log(message string), 
+// который будет записывать сообщение в журнал. 
+// Создайте пользовательский тип LogLevel типа string, 
+// сделайте константные значения типа LogLevel со 
+// значениями Error и Info. Создайте структуру Log 
+// с полем Level типа LogLevel. Реализуйте метод Log 
+// с параметром типа string (текст ошибки), который 
+// в зависимости от текущего LogLevel выводит сообщение 
+// ERROR: *текст ошибки* или INFO: *текст ошибки*.
+
+// Формат ввода
+// Интерфейс Logger с методом Log(message string), 
+// пользовательский тип LogLevel типа string 
+// с значениями Error и Info, структура Log 
+// с полем Level типа LogLevel, реализующая этот интерфейс
+package main
+
+import "fmt"
+
+type Logger interface {
+	Log(message string)
+}
+
+type LogLevel string
+
+const (
+	Error LogLevel = "ERROR"
+	Info  LogLevel = "INFO"
+)
+
+type Log struct {
+	Level LogLevel
+}
+
+// Реализация метода Log
+func (l Log) Log(message string) {
+	if l.Level == Error {
+		fmt.Println("ERROR:", message)
+	} else if l.Level == Info {
+		fmt.Println("INFO:", message)
+	}
+}
+
+func main() { // Пример использования
+	logger1 := Log{Level: Error}
+	logger1.Log("Что-то пошло не так")
+	logger2 := Log{Level: Info}
+	logger2.Log("Система запущена")
+}
+
+
+
+
+
+
+
+
+
+//  ООП  //
+package main
+
+import "fmt"
+
+type Cat struct {
+	Name string
+}
+
+// Конструктор. Функция, которая создаёт экземпляр нашего объекта
+func NewCat(name string) Cat {
+	return Cat{Name: name}
+}
+
+// Метод Meow() — то есть «мяукать»
+func (c Cat) Meow() {
+	fmt.Printf("%s мяукнул(а)!\n", c.Name)
+}
+
+func main() {
+	myCat := NewCat("Барсик")
+	myCat.Meow()
+}
+
+
+
+
+
+
+
+При агрегации один объект содержит в себе другой как свою часть. Однако внутренний объект не абсолютно зависим от внешнего. Например, автомобильный двигатель может существовать и сам по себе, без автомобиля.
+
+Агрегация в Go происходит, когда структура включает в себя другую структуру как своё поле. Методы и поля внутренней структуры могут использоваться только через экземпляр этой структуры внутри внешней структуры:
+
+package main
+
+import "fmt"
+
+type Engine struct {
+    Model string
+}
+
+type Car struct {
+    Make   string
+    Engine Engine
+}
+
+func main() {
+    engine := Engine{Model: "V6"}
+    car := Car{Make: "Toyota", Engine: engine}
+
+    fmt.Printf("Car Make: %s\n", car.Make)
+    fmt.Printf("Engine Model: %s\n", car.Engine.Model)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// Программист Арсений решил помочь районной библиотеке 
+// автоматизировать выдачу и приём книг. Для этого, 
+// перво-наперво, нужно сохранить цифровую информацию о каждой книге. 
+// Арсений поручил это сложное задание вам.
+
+// Создайте структуру Book с полями:
+
+// Title (string)
+// Author (string)
+// Year (int)
+// Genre (string)
+// Вам нужно создать конструктор для этой структуры. 
+// Он должен инициализировать поля структуры, 
+// когда будет появляться её новый экземпляр, 
+// принимать значения всех полей и возвращать 
+// указатель на экземпляр структуры.
+
+// Формат ввода
+// Cтруктура Book и 
+// метод NewBook(title, author string, year int, genre string) *Book
+package main
+
+type Book struct {
+	Title  string
+	Author string
+	Year   int
+	Genre  string
+}
+
+func NewBook(title, author string, year int, genre string) *Book {
+	return &Book{
+		Title:  title,
+		Author: author,
+		Year:   year,
+		Genre:  genre,
+	}
+}
+
+func main() {
+	// // Используем конструктор
+	// person, err := NewPerson("Alice", "")
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// fmt.Printf("Имя: %s, Возраст: %d\n", person.Name, person.Age)
+}
+
+
+
+
+
+
+
+
+
+
+
+// Программист Арсений всё ещё продолжает писать проект 
+// для районной библиотеки. Теперь требуется создать структуру 
+// с данными читателей. Помогите коллеге!
+
+// Создайте структуру User с полями:
+
+// Name (string)
+// Age (int)
+// IsActive (bool)
+// Далее добавьте конструктор для структуры, 
+// который будет инициализировать поля Name и Age.
+
+// Поле Name должно быть обязательным для заполнения 
+// в каждом экземпляре структуры; если оно пустое, нужно 
+// вернуть ошибку: name is empty for user. 
+// По умолчанию у поля Age должно быть значение 18, 
+// а у поля IsActive — true.
+
+// Формат ввода
+// Структура User и метод NewUser(name string, age int) (*User, error)
+package main
+
+import "errors"
+
+type User struct {
+	Name     string
+	Age      int
+	IsActive bool
+}
+
+var (
+	NotName = errors.New("name is empty for user")
+)
+
+func NewUser(name string, age int) (*User, error) {
+	if name == "" {
+		return nil, NotName
+	} else if age == 0 {
+		return &User{
+			Name:     name,
+			Age:      18,
+			IsActive: true,
+		}, nil
+	}
+	return &User{
+		Name:     name,
+		Age:      age,
+		IsActive: true,
+	}, nil
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// Библиотеке нужно не только выдавать книги читателям, 
+// но и ежемесячно отчитываться о работе. 
+// Вам с программистом Арсением нужно создать 
+// систему генерации отчётов.
+
+// Разработайте программу, которая будет создавать 
+// отчёты о пользователях. Внутри у неё должны быть 
+// структуры User с данными о пользователях и Report, 
+// которая встраивает в себя структуру User. 
+// Отчёты о пользователях должны выводиться на основе 
+// данных этих структур.
+
+// Создайте структуру User с полями:
+
+// ID (int)
+// Name (string)
+// Email (string)
+// Age (int)
+// Реализуйте структуру Report, 
+// которая встраивает в себя User и добавляет поля:
+
+// ReportID (int)
+// Date (string)
+// Добавьте функцию 
+
+// CreateReport(user User, reportDate string) Report, 
+// которая принимает пользователя и дату и возвращает отчёт с 
+// заполненными данными. Уникальный ReportID можно сгенерировать, 
+// например, с учётом времени регистрации 
+// (ReportID может быть произвольным, на ваш вкус).
+
+// Создайте функцию 
+// GenerateUserReports(users []User, reportDate string) []Report, 
+// которая принимает список пользователей и дату и возвращает список 
+// отчётов о пользователях. Для каждого пользователя в списке 
+// создайте отчёт с помощью функции CreateReport и 
+// добавьте его в итоговый список.
+
+// Формат ввода
+// Структуры User и Report, а также функции 
+// CreateReport(user User, reportDate string) Report и 
+// GenerateUserReports(users []User, reportDate string) []Report
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+type User struct {
+	ID    int
+	Name  string
+	Email string
+	Age   int
+}
+type Report struct {
+	ReportID int
+	Date     string
+	User
+}
+
+func CreateReport(user User, reportDate string) Report {
+	id := time.Now().UnixNano()
+	return Report{
+		ReportID: int(id),
+		Date:     reportDate,
+		User:     user,
+	}
+
+}
+func GenerateUserReports(users []User, reportDate string) []Report {
+	var reports []Report
+	for _, user := range users {
+		reports = append(reports, CreateReport(user, reportDate))
+	}
+	return reports
+}
+
+func main() {
+	users := []User{
+		{ID: 1, Name: "Alice", Email: "alice@mail.com", Age: 25},
+		{ID: 2, Name: "Bob", Email: "bob@mail.com", Age: 30},
+		{ID: 3, Name: "Charlie", Email: "charlie@mail.com", Age: 28},
+	}
+
+	reports := GenerateUserReports(users, "2025-01-01")
+
+	for _, r := range reports {
+		fmt.Printf("Report ID: %d | Date: %s | User: %s (%d)\n",
+			r.ID, r.Date, r.Name, r.Age)
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Композиция интерфейсов позволяет объединять их и создавать новый — определять интерфейс, который включает в себя методы из других интерфейсов.
+
+Композиция интерфейсов в Go происходит, когда один или несколько интерфейсов включаются в определение другого. Новый интерфейс наследует их методы и требования:
+
+package main
+
+import "fmt"
+
+// Интерфейс Reader
+type Reader interface {
+    Read() string
+}
+
+// Интерфейс Writer
+type Writer interface {
+    Write(data string)
+}
+
+// Интерфейс ReadWriter объединяет методы Reader и Writer
+type ReadWriter interface {
+    Reader
+    Writer
+}
+
+// Структура, которая реализует интерфейс ReadWriter
+type TextProcessor struct {
+    data string
+}
+
+func (tp *TextProcessor) Read() string {
+    return tp.data
+}
+
+func (tp *TextProcessor) Write(data string) {
+    tp.data = data
+}
+
+func main() {
+    tp := &TextProcessor{}
+
+    // Используем интерфейс ReadWriter
+    var rw ReadWriter = tp
+
+    rw.Write("Hello, World!")
+    fmt.Println(rw.Read()) // Вывод: Hello, World!
+}
+
+
+
+package main
+
+import "fmt"
+
+type Animal interface {
+    Speak() string
+}
+
+type Dog struct {
+    Name string
+}
+
+func (d *Dog) Speak() string {
+    return "Woof!"
+}
+
+type Cat struct {
+    Name string
+}
+
+func (c *Cat) Speak() string {
+    return "Meow!"
+}
+
+type Cow struct {
+    Name string
+}
+
+func (c *Cow) Speak() string {
+    return "Moo!"
+}
+
+func main() {
+    animals := []Animal{
+        &Dog{"Fido"},
+        &Cat{"Fluffy"},
+        &Cow{"Betsy"},
+    }
+
+    for _, animal := range animals {
+        fmt.Println(animal.Speak())
+    }
+}
+
+
+
+// Программист Арсений снова взял непростой заказ: 
+// сервис каршеринга попросил его разработать систему 
+// тарификации для автомобилей и мотоциклов. 
+// У каждого транспортного средства должен быть метод для 
+// расчёта времени в пути до пункта назначения, 
+// чтобы на основе этих данных вычислять стоимость проката.
+
+// Запрограммируйте интерфейс Vehicle, 
+// который будет представлять транспортное средство и 
+// рассчитывать время в пути с помощью метода 
+// CalculateTravelTime(distance float64) float64.
+
+// Добавьте две структуры, 
+// Car (автомобиль) и Motorcycle (мотоцикл). 
+// Обе должны реализовывать интерфейс Vehicle и 
+// у обеих должны быть поля для хранения данных 
+// о транспортных средствах: 
+// Type (string), Speed (float64), FuelType (string).
+
+// Создайте функцию 
+// EstimateTravelTime(vehicles []Vehicle, distance float64) 
+// map[string]float64. 
+// Она должна принимать список транспортных средств и 
+// расстояние до пункта назначения, а затем возвращать мапу. 
+// Ключи в ней — это типы транспортных средств, 
+// а значения — время в пути для обоих 
+// (оно рассчитывается через отношение пути к скорости).
+
+// Примечания
+// Используйте полиморфизм для вызова метода 
+// CalculateTravelTime() на каждом транспортном средстве 
+// независимо от его типа: в этом вам поможет функция 
+// TypeOf из пакета reflect.
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+type Vehicle interface {
+	CalculateTravelTime(distance float64) float64
+}
+type Car struct {
+	Type     string
+	Speed    float64
+	FuelType string
+}
+
+func (c Car) CalculateTravelTime(distance float64) float64 {
+	return distance / c.Speed
+
+}
+
+type Motorcycle struct {
+	Type     string
+	Speed    float64
+	FuelType string
+}
+
+func (m Motorcycle) CalculateTravelTime(distance float64) float64 {
+	return distance / m.Speed
+}
+func EstimateTravelTime(vehicles []Vehicle, distance float64) map[string]float64 {
+	estTravelTimeMap := make(map[string]float64)
+	for _, vehvehicle := range vehicles {
+		t := reflect.TypeOf(vehvehicle)
+		key := t.PkgPath() + "." + t.Name()
+		estTravelTimeMap[key] = vehvehicle.CalculateTravelTime(distance)
+	}
+	return estTravelTimeMap
+}
+
+func main() {
+	car := Car{
+		Type:     "Car",
+		Speed:    100,
+		FuelType: "Gasoline",
+	}
+
+	moto := Motorcycle{
+		Type:     "Motorcycle",
+		Speed:    120,
+		FuelType: "Petrol",
+	}
+
+	vehicles := []Vehicle{car, moto}
+
+	result := EstimateTravelTime(vehicles, 240)
+
+	for vehicleType, time := range result {
+		fmt.Printf("%s -> %.2f\n", vehicleType, time)
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// В официальных документах информация часто заполняется заглавными 
+// буквами. Программист Арсений решил автоматизировать этот процесс.
+
+// Помогите ему: реализуйте интерфейс Writer 
+// с методом Write(p []byte) int и 
+// Reader с методом Read() []byte, 
+// а также композитный интерфейс ReaderWriter на их основе.
+
+// Создайте структуру UpperReaderWriter с полем UpperString (string), 
+// которая реализует интерфейс ReaderWriter. 
+// Метод Write этой структуры должен принимать данные в виде 
+// слайса байт и записывать их в поле UpperString, 
+// приводить к верхнему регистру и выводить количество записанных байт. 
+// А метод Read должна выводить содержимое UpperString 
+// в виде набора байт.
+package main
+
+import (
+	"strings"
+)
+
+type Writer interface {
+	Write(p []byte) int
+}
+type Reader interface {
+	Read() []byte
+}
+type ReaderWriter interface {
+	Writer
+	Reader
+}
+type UpperReaderWriter struct {
+	UpperString string
+}
+
+func (u *UpperReaderWriter) Write(p []byte) int {
+	var str string
+	str = string(p)
+	str = strings.ToUpper(str)
+	u.UpperString = str
+	return len(p)
+}
+func (u *UpperReaderWriter) Read() []byte {
+	return []byte(u.UpperString)
+}
+func main() {
+	urw := UpperReaderWriter{}
+	urw.Write([]byte("hello world"))
+	println(string(urw.Read())) // Должно вывести: HELLO WORLD
+}
+
+
+
+
+
+
+
+
+
+
+// Программист Арсений, как обычно, должен спасти мир, 
+// а именно — банковскую систему России. Дирекция крупного 
+// национального банка попросила нашего героя переписать их 
+// основную платёжную систему. Чтобы, не отвлекаясь, подумать 
+// над общей архитектурой программы, 
+// Арсений делегирует черновую работу вам.
+
+// Напишите программу для управления банковским счётом. 
+// Создайте структуру Account с приватными полями 
+// balance (float64) и owner (string).
+
+// Реализуйте конструктор 
+// NewAccount(owner string) *Account, который 
+// устанавливает нулевой баланс по умолчанию. 
+// Также реализуйте методы:
+
+// SetBalance(value float64) error — устанавливает значение баланса
+// GetBalance() float64 — получает баланс
+// Deposit(value float64) error — увеличивает баланс
+//  (проверьте, чтоvalue — положительное число)
+// Withdraw(value float64) error — уменьшает баланс
+//  (проверьте, чтоvalue — положительное число)
+// Кроме того, нужно убедиться, что баланс всегда строго положительный.
+package main
+
+import "errors"
+
+var (
+	InsufficientFunds = errors.New("insufficient funds")
+)
+
+type Account struct {
+	balance float64
+	owner   string
+}
+
+func NewAccount(owner string) *Account {
+	return &Account{
+		balance: 0,
+		owner:   owner,
+	}
+}
+
+func (a *Account) SetBalance(value float64) error {
+	if value < 0 {
+		return InsufficientFunds
+	}
+	a.balance = value
+	return nil
+}
+
+func (a *Account) GetBalance() float64 {
+	return a.balance
+}
+
+func (a *Account) Deposit(value float64) error {
+	if value <= 0 {
+		return InsufficientFunds
+	}
+	a.balance += value
+	return nil
+}
+
+func (a *Account) Withdraw(value float64) error {
+	if value <= 0 || a.balance < value {
+		return InsufficientFunds
+	}
+	a.balance -= value
+	return nil
+}
+
+func main() {
+	acc := NewAccount("Иван")
+
+	// Проверяем SetBalance
+	err := acc.SetBalance(100)
+	if err != nil {
+		println("Ошибка SetBalance:", err.Error())
+	}
+	println("Баланс после SetBalance(100):", acc.GetBalance())
+
+	// Проверяем Deposit
+	err = acc.Deposit(50)
+	if err != nil {
+		println("Ошибка Deposit:", err.Error())
+	}
+	println("Баланс после Deposit(50):", acc.GetBalance())
+
+	// Проверяем Withdraw
+	err = acc.Withdraw(30)
+	if err != nil {
+		println("Ошибка Withdraw:", err.Error())
+	}
+	println("Баланс после Withdraw(30):", acc.GetBalance())
+
+	// Проверяем ошибку при попытке снять слишком много
+	err = acc.Withdraw(500)
+	if err != nil {
+		println("Ожидаемая ошибка Withdraw(500):", err.Error())
+	}
+
+	// Проверяем ошибку при отрицательном депозите
+	err = acc.Deposit(-10)
+	if err != nil {
+		println("Ожидаемая ошибка Deposit(-10):", err.Error())
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Обычно реальные проекты используют для конфигурации отдельный пакет. 
+// Напишите пакет config, который поможет сконфигурировать 
+// наше банковское приложение.
+
+// В пакете config реализуйте структуру Config с полем 
+// DefaultBalance (float64) — значение баланса по умолчанию 
+// (будем считать, что новым клиентам банк начисляет подарочную 
+// сумму за оформление карты).
+
+// Кроме этого реализуйте функцию NewConfig() *Config, 
+// которая будет устанавливать для DefaultBalance значение 1000 
+// по умолчанию.
+package config
+
+type Config struct {
+	DefaultBalance float64
+}
+
+func NewConfig() *Config {
+	return &Config{
+		DefaultBalance: 1000,
+	}
+}
+
+
+
+
+
+
+
+Программист Арсений увлекается программированием и 
+животными. Он решил совместить приятное с полезным 
+и открыть свой виртуальный зоопарк. Но у него, как 
+всегда, не хватает времени писать красивый код по 
+принципам ООП, поэтому он передоверил задачу вам.
+
+В программе должен быть интерфейс Animal с методами:
+
+MakeSound() string — возвращает строку со звуком 
+животного
+GetName() string — возвращает строку с именем животного
+GetInfo() string — возвращает строку с информацией 
+о животном в формате: 
+Имя: *name*, Вид: *species*, Возраст: *age*
+Создайте структуру animal, которая реализует 
+контракт интерфейса Animal. Животное в зоопарке должно 
+быть представлено структурой с полями:
+
+name (string) — имя животного
+species (string) — вид (например, "Тигр", "Пингвин")
+age (int) — возраст
+sound (string) — звук, который издает животное 
+(например, «Ррр» или «Кря»)
+Напишите конструктор этой структуры 
+NewAnimal(name, species string, age int, sound string) 
+Animal.
+
+Используйте инкапсуляцию: поля структур должны быть 
+приватными, а доступ к ним — строго через методы. 
+Реализуйте полиморфизм: функцию 
+ZooShow(animals []Animal), которая принимает массив 
+животных и для каждого вызывает 
+GetInfo() и MakeSound(), выводя их результат в 
+отдельных строках.
+
+Также создайте структуру ZooKeeper с методом 
+Feed(animal Animal), который выводит: Смотритель
+ зоопарка кормит *name*. *sound*!.
