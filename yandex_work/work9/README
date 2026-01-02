@@ -157,3 +157,263 @@ func GetUTFLength(input []byte) (int, error) {
 }
 Примечания
 Функцию GetUTFLength реализовывать не нужно.
+
+
+
+
+
+
+
+
+
+
+В той же версии Go в стандартную библиотеку добавили пакет slices, который существенно облегчает работу со слайсами. Чтобы выполнить сортировку, достаточно воспользоваться вот такой функцией:
+
+func Sort[S ~[]E, E cmp.Ordered](x S)
+
+func main() {
+	smallInts := []int8{0, 42, -10, 8}
+	slices.Sort(smallInts)
+	fmt.Println(smallInts) // [-10 0 8 42]
+}
+
+Иногда бывает нужно отсортировать что-то посложнее слайса. Предположим, на складе магазина техники каждый товар лежит в определённой коробке. Мы можем описать склад вот такой структурой:
+
+// Опишем склад с товарами
+type Goods struct { 
+	Names []string	// Название товара
+	Boxes []int	    // Коробка, в которой лежит товар
+}
+В третью коробку положим телефон, в первую — планшет, а во вторую — наушники:
+
+goods := Goods{
+		Names: []string{"phone", "tablet", "earphones"},
+		Boxes: []int{3, 1, 2},
+}
+Чтобы быстрее находить товары, нужно отсортировать их. При этом нам важно сохранить позиции товаров: товар с индексом i должен лежать в коробке с номером, который хранится в Boxes[i]. Для решения этой задачи реализуем специальный интерфейс:
+
+type Interface interface {
+	Len() int
+	Less(i, j int) bool
+	Swap(i, j int)
+}
+Так мы сможем использовать алгоритм сортировки из стандартной библиотеки:
+
+func (g Goods) Len() int {
+	return len(g.Names)
+}
+func (g Goods) Swap(i, j int) {
+	g.Names[i], g.Names[j] = g.Names[j], g.Names[i] // Меняем местами как название товара,
+	g.Boxes[i], g.Boxes[j] = g.Boxes[j], g.Boxes[i] // так и коробки, где товар хранится
+}
+func (g Goods) Less(i, j int) bool {
+	return g.Boxes[i] < g.Boxes[j]
+}
+Теперь воспользуемся функцией Sort:
+
+sort.Sort(goods)
+fmt.Println(goods) // {[tablet earphones phone] [1 2 3]}
+Вуаля! Наши товары отсортированы.
+
+В этом уроке рассмотрены ключевые аспекты сортировки в Go, включая оценку эффективности алгоритмов через O нотацию и потребление памяти. Изучены стандартные пакеты slices (с поддержкой дженериков) и sort, а также практические примеры сортировки примитивов, структур и сложных данных с использованием функций сравнения и интерфейса sort.Interface.
+
+ 
+
+
+
+
+
+
+
+
+
+ В вузе, где учится программист Арсений, 
+ балльно-рейтинговая система. Администрация попросила его реализовать 
+ сортировку рейтинга, чтобы определять студентов с лучшими показателями.
+
+Напишите функцию SortNums(nums []uint), которая сортирует 
+слайс nums по возрастанию.
+
+Формат ввода
+Функция SortNums(nums []uint)
+package main
+
+import "sort"
+
+func SortNums(nums []uint) {
+	sort.Slice(nums, func(i, j int) bool {
+		return nums[i] < nums[j]
+	})
+}
+func main() {
+
+}
+
+
+
+
+
+
+
+
+Отсортировать рейтинг по значению — это только полдела. 
+Чтобы сформировать удобный список на сайте вуза, 
+нужно произвести сортировку ещё и по алфавиту. 
+Арсений как всегда делегировал это дело вам.
+
+Напишите программу с функцией SortNames(names []string),
+которая сортирует список имён в алфавитном порядке. 
+Если первые буквы в именах совпадают, она сортирует их по 
+вторым и т. д.
+
+Формат ввода
+Функция SortNames(names []string)
+
+Примечания
+Пример отсортированного списка: 
+["Аксинья", "Арина", "Варвара", "Есения"]
+package main
+
+import "sort"
+
+func SortNames(names []string) {
+	sort.Strings(names)
+}
+func main() {
+
+}
+
+
+
+
+
+
+
+Предприятие, на котором работает программист Арсений, 
+крупное, там много сотрудников. У каждого из них своя 
+должность, зарплата и стаж работы.
+
+Напишите программу, в которой тип Company реализует 
+такой интерфейс:
+
+type CompanyInterface interface{
+    AddWorkerInfo(name, position string, salary, experience uint) error
+    SortWorkers() ([]string, error) 
+}
+AddWorkerInfo — метод добавления информации о 
+новых сотрудниках, где name — имя сотрудника, 
+position — должность, salary — зарплата, 
+experience — стаж работы (месяцев).
+
+SortWorkers — метод, который сортирует список с
+отрудников по доходу за время работы на 
+предприятии (по убыванию), должности 
+(от высокой до низкой) и возвращает слайс формата: 
+*имя* — *доход* — *должность*. 
+Допустимые должности в порядке убывания: 
+«директор», «зам. директора», «начальник цеха», 
+«мастер», «рабочий».
+
+Примечания
+Пример отсортированного вывода:
+
+Михаил — 12000 — директор  
+Андрей — 11800 — мастер  
+Игорь — 11000 — зам. директора 
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+type CompanyInterface interface {
+	AddWorkerInfo(name, position string, salary, experience uint) error
+	SortWorkers() ([]string, error)
+}
+
+type worker struct {
+	name       string
+	position   string
+	salary     uint
+	experience uint
+}
+
+type Company struct {
+	workers []worker
+}
+
+var positionRank = map[string]int{
+	"директор":       0,
+	"зам. директора": 1,
+	"начальник цеха": 2,
+	"мастер":         3,
+	"рабочий":        4,
+}
+
+func (c *Company) AddWorkerInfo(name, position string, salary, experience uint) error {
+	if _, ok := positionRank[position]; !ok {
+		return fmt.Errorf("invalid position: %s", position)
+	}
+	w := worker{name: name, position: position, salary: salary, experience: experience}
+	c.workers = append(c.workers, w)
+	return nil
+}
+
+func (c *Company) SortWorkers() ([]string, error) {
+	if len(c.workers) == 0 {
+		return nil, fmt.Errorf("no workers available")
+	}
+
+	ws := make([]worker, len(c.workers))
+	copy(ws, c.workers)
+
+	sort.Slice(ws, func(i, j int) bool {
+		incomeI := ws[i].salary * ws[i].experience
+		incomeJ := ws[j].salary * ws[j].experience
+		if incomeI != incomeJ {
+			return incomeI > incomeJ // по убыванию дохода
+		}
+		// если доходы равны — по должности (меньший rank = выше в иерархии)
+		rankI := positionRank[ws[i].position]
+		rankJ := positionRank[ws[j].position]
+		if rankI != rankJ {
+			return rankI < rankJ
+		}
+		// финальный критерий — по имени (по возрастанию) для детерминированности
+		return ws[i].name < ws[j].name
+	})
+
+	res := make([]string, 0, len(ws))
+	for _, w := range ws {
+		income := w.salary * w.experience
+		res = append(res, fmt.Sprintf("%s — %d — %s", w.name, income, w.position))
+	}
+	return res, nil
+}
+
+func main() {
+	c := &Company{}
+	_ = c.AddWorkerInfo("Михаил", "директор", 1000, 12)      // доход 12000
+	_ = c.AddWorkerInfo("Андрей", "мастер", 100, 118)        // доход 11800
+	_ = c.AddWorkerInfo("Игорь", "зам. директора", 1100, 10) // доход 11000
+
+	out, err := c.SortWorkers()
+	if err != nil {
+		fmt.Println("error:", err)
+		return
+	}
+	for _, line := range out {
+		fmt.Println(line)
+	}
+}
+Иногда так хочется изучить новую сортировку... Вот и программист Арсений на выходных решил потратить на это время.
+
+Даны два слайса. Напишите программу с функцией SortAndMerge(left, right []int) []int, которая объединит слайсы в один отсортированный в два этапа:
+
+отсортировать каждый слайс
+объединить полученные слайсы в один
+Кстати, именно так работает алгоритм сортировки слиянием (merge sort).
+
+Примечания
+Объединять слайсы до сортировки нельзя (это читерство).

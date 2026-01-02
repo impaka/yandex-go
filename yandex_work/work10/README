@@ -1,0 +1,157 @@
+Напишите программу, которая рассчитывает 
+базовую тарифную сетку для нашего проекта.
+
+Для этого реализуйте структуру TripParameters с 
+полями Distance (float64) и Duration (float64). 
+Также реализуйте функцию CalculateBasePrice, 
+которая рассчитывает базовую цену по формуле: 
+Distance * pricePerKm + Duration * pricePerMinute. 
+Значения pricePerKm и pricePerMinute вынесите в 
+константы с соответствующими значениями 10.0 и 2.0.
+
+Примечания
+Программа должна находиться в пакете main для тестирования.
+package main
+
+type TripParameters struct {
+	Distance float64
+	Duration float64
+}
+
+const (
+	pricePerKm     = 10.0
+	pricePerMinute = 2.0
+)
+
+func CalculateBasePrice(t TripParameters) float64 {
+	return t.Distance*pricePerKm + t.Duration*pricePerMinute
+}
+
+
+
+
+
+
+
+
+
+
+
+
+Напишите программу, которая возвращает коэффициент в 
+зависимости от загруженности дорог. 
+Для этого напишите функцию 
+func GetWeatherMultiplier(weather WeatherData) float64 . 
+Изначальный коэффициент равен 1.0. Если идёт сильный дождь, 
+нужно увеличить его на 0.2; 
+если снег — на 0.15; 
+в обычный дождь — на 0.125; 
+если скорость ветра больше 15 — на 0.1.
+
+Напоминаем, что структура WeatherData должна выглядеть так:
+
+type WeatherCondition int
+
+const (
+    Clear WeatherCondition = iota // Ключевое слово iota присваивает каждой константе числовое значение по порядку (0, 1, 2, 3 и т.д.)
+    Rain
+    HeavyRain
+    Snow
+)
+
+type WeatherData struct {
+    Condition WeatherCondition
+    WindSpeed int
+}
+Примечания
+Программа должна находиться в пакете main для тестирования. WeatherCondition и WeatherData также нужно реализовать в решение.
+package main
+
+import "fmt"
+
+type WeatherCondition int
+
+const (
+	Clear WeatherCondition = iota
+	Rain
+	HeavyRain
+	Snow
+)
+
+type WeatherData struct {
+	Condition WeatherCondition
+	WindSpeed int
+}
+
+func GetWeatherMultiplier(weather WeatherData) float64 {
+	mult := 1.0
+
+	switch weather.Condition {
+	case HeavyRain:
+		mult += 0.2 // сильный дождь
+	case Snow:
+		mult += 0.15 // снег
+	case Rain:
+		mult += 0.125 // обычный дождь
+	case Clear:
+		// ничего не добавляем
+	}
+
+	if weather.WindSpeed > 15 {
+		mult += 0.1 // сильный ветер
+	}
+
+	return mult
+}
+
+func main() {
+	tests := []WeatherData{
+		{Condition: Clear, WindSpeed: 5},
+		{Condition: Rain, WindSpeed: 5},
+		{Condition: HeavyRain, WindSpeed: 10},
+		{Condition: Snow, WindSpeed: 20},
+		{Condition: HeavyRain, WindSpeed: 20}, // и дождь, и сильный ветер
+	}
+
+	for _, t := range tests {
+		fmt.Printf("Condition=%v Wind=%d -> multiplier=%.3f\n", t.Condition, t.WindSpeed, GetWeatherMultiplier(t))
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+Напишите программу, которая ограничивает максимальную и минимальную цену поездки. 
+Вынесите эти значения в константы minPrice и maxPrice со значениями 99.0 и 20000. 
+Саму проверку реализуйте в функции ApplyPriceLimits(price float64) float64, 
+которая получает цену и возвращает либо её же, если она входит в ограничения, 
+либо минимальную цену, если меньше, либо максимальную, если больше.
+
+Примечания
+Программа должна находиться в пакете main для тестирования.
+package main
+
+const (
+	minPrice = 99.0
+	maxPrice = 20000
+)
+
+func ApplyPriceLimits(price float64) float64 {
+	if price < minPrice {
+		price = minPrice
+	} else if price > maxPrice {
+		price = maxPrice
+	} 
+	return price
+}
+func main() {
+
+}

@@ -1,16 +1,36 @@
 package main
 
-import (
-	"errors"
-	"unicode/utf8"
-)
+import "sort"
 
-var ErrInvalidUTF8 = errors.New("invalid utf8")
+func SortAndMerge(left, right []int) []int {
+	// сортируем входные срезы (изменяет их)
+	sort.Ints(left)
+	sort.Ints(right)
 
-func GetUTFLength(input []byte) (int, error) {
-	if !utf8.Valid(input) {
-		return 0, ErrInvalidUTF8
+	result := make([]int, 0, len(left)+len(right))
+	i, j := 0, 0
+
+	for i < len(left) && j < len(right) {
+		if left[i] < right[j] {
+			result = append(result, left[i])
+			i++
+		} else {
+			result = append(result, right[j])
+			j++
+		}
 	}
 
-	return utf8.RuneCount(input), nil
+	// добавить оставшиеся элементы
+	if i < len(left) {
+		result = append(result, left[i:]...)
+	}
+	if j < len(right) {
+		result = append(result, right[j:]...)
+	}
+
+	return result
+}
+
+func main() {
+
 }
