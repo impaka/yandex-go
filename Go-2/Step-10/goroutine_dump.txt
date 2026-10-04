@@ -1,0 +1,48 @@
+goroutine profile: total 2
+1 @ 0x7ff73b84ea71 0x7ff73b888a5d 0x7ff73b8dbdb1 0x7ff73b8dbbe5 0x7ff73b8d8a69 0x7ff73b8ee53e 0x7ff73b88fd01
+#	0x7ff73b8dbdb0	runtime/pprof.writeRuntimeProfile+0xb0	C:/Program Files/Go/src/runtime/pprof/pprof.go:851
+#	0x7ff73b8dbbe4	runtime/pprof.writeGoroutine+0x44	C:/Program Files/Go/src/runtime/pprof/pprof.go:784
+#	0x7ff73b8d8a68	runtime/pprof.(*Profile).WriteTo+0x148	C:/Program Files/Go/src/runtime/pprof/pprof.go:408
+#	0x7ff73b8ee53d	main.main.func1+0x3d			C:/yandex-go/Go-2/Step-10/main.go:23
+
+1 @ 0x7ff73b8895ee 0x7ff73b88c767 0x7ff73b8ee4cb 0x7ff73b85a287 0x7ff73b88fd01
+#	0x7ff73b88c766	time.Sleep+0x166	C:/Program Files/Go/src/runtime/time.go:363
+#	0x7ff73b8ee4ca	main.main+0x10a		C:/yandex-go/Go-2/Step-10/main.go:34
+#	0x7ff73b85a286	runtime.main+0x2c6	C:/Program Files/Go/src/runtime/proc.go:290
+
+goroutine profile: total 2
+1 @ 0x7ff73b84ea71 0x7ff73b888a5d 0x7ff73b8dbdb1 0x7ff73b8dbbe5 0x7ff73b8d8a69 0x7ff73b8ee53e 0x7ff73b88fd01
+#	0x7ff73b8dbdb0	runtime/pprof.writeRuntimeProfile+0xb0	C:/Program Files/Go/src/runtime/pprof/pprof.go:851
+#	0x7ff73b8dbbe4	runtime/pprof.writeGoroutine+0x44	C:/Program Files/Go/src/runtime/pprof/pprof.go:784
+#	0x7ff73b8d8a68	runtime/pprof.(*Profile).WriteTo+0x148	C:/Program Files/Go/src/runtime/pprof/pprof.go:408
+#	0x7ff73b8ee53d	main.main.func1+0x3d			C:/yandex-go/Go-2/Step-10/main.go:23
+
+1 @ 0x7ff73b8895ee 0x7ff73b88c767 0x7ff73b8ee4cb 0x7ff73b85a287 0x7ff73b88fd01
+#	0x7ff73b88c766	time.Sleep+0x166	C:/Program Files/Go/src/runtime/time.go:363
+#	0x7ff73b8ee4ca	main.main+0x10a		C:/yandex-go/Go-2/Step-10/main.go:34
+#	0x7ff73b85a286	runtime.main+0x2c6	C:/Program Files/Go/src/runtime/proc.go:290
+
+goroutine profile: total 2
+1 @ 0x7ff73b84ea71 0x7ff73b888a5d 0x7ff73b8dbdb1 0x7ff73b8dbbe5 0x7ff73b8d8a69 0x7ff73b8ee53e 0x7ff73b88fd01
+#	0x7ff73b8dbdb0	runtime/pprof.writeRuntimeProfile+0xb0	C:/Program Files/Go/src/runtime/pprof/pprof.go:851
+#	0x7ff73b8dbbe4	runtime/pprof.writeGoroutine+0x44	C:/Program Files/Go/src/runtime/pprof/pprof.go:784
+#	0x7ff73b8d8a68	runtime/pprof.(*Profile).WriteTo+0x148	C:/Program Files/Go/src/runtime/pprof/pprof.go:408
+#	0x7ff73b8ee53d	main.main.func1+0x3d			C:/yandex-go/Go-2/Step-10/main.go:23
+
+1 @ 0x7ff73b8895ee 0x7ff73b88c767 0x7ff73b8ee4cb 0x7ff73b85a287 0x7ff73b88fd01
+#	0x7ff73b88c766	time.Sleep+0x166	C:/Program Files/Go/src/runtime/time.go:363
+#	0x7ff73b8ee4ca	main.main+0x10a		C:/yandex-go/Go-2/Step-10/main.go:34
+#	0x7ff73b85a286	runtime.main+0x2c6	C:/Program Files/Go/src/runtime/proc.go:290
+
+goroutine profile: total 2
+1 @ 0x7ff73b84ea71 0x7ff73b888a5d 0x7ff73b8dbdb1 0x7ff73b8dbbe5 0x7ff73b8d8a69 0x7ff73b8ee53e 0x7ff73b88fd01
+#	0x7ff73b8dbdb0	runtime/pprof.writeRuntimeProfile+0xb0	C:/Program Files/Go/src/runtime/pprof/pprof.go:851
+#	0x7ff73b8dbbe4	runtime/pprof.writeGoroutine+0x44	C:/Program Files/Go/src/runtime/pprof/pprof.go:784
+#	0x7ff73b8d8a68	runtime/pprof.(*Profile).WriteTo+0x148	C:/Program Files/Go/src/runtime/pprof/pprof.go:408
+#	0x7ff73b8ee53d	main.main.func1+0x3d			C:/yandex-go/Go-2/Step-10/main.go:23
+
+1 @ 0x7ff73b8895ee 0x7ff73b88c767 0x7ff73b8ee4cb 0x7ff73b85a287 0x7ff73b88fd01
+#	0x7ff73b88c766	time.Sleep+0x166	C:/Program Files/Go/src/runtime/time.go:363
+#	0x7ff73b8ee4ca	main.main+0x10a		C:/yandex-go/Go-2/Step-10/main.go:34
+#	0x7ff73b85a286	runtime.main+0x2c6	C:/Program Files/Go/src/runtime/proc.go:290
+
