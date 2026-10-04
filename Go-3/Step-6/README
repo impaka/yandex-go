@@ -1,0 +1,49 @@
+На этом уроке мы рассмотрим средства тестирования http-сервера из стандартной библиотеки go и научимся проверять, что программы работают как надо, не запуская их.
+
+Пакет httptest
+В httptest есть два метода, которые помогают упростить тестирование для обработчиков:
+
+NewRequest имитирует запрос, который будет использоваться для обслуживания обработчика
+NewRecorder заменяет ResponseWriter: он обрабатывает HTTP-ответ и сравнивает его с ожидаемым результатом
+Вот пример:
+
+
+package main
+
+import (
+  "fmt"
+  "io"
+
+  "net/http"
+
+  "net/http/httptest"
+)
+
+func handler(w http.ResponseWriter, _ *http.Request) {
+  w.Write([]byte("Hello, World!"))
+}
+
+func main() {
+  req := httptest.NewRequest("GET", "http://google.com", nil)
+  w := httptest.NewRecorder()
+  handler(w, req)
+  resp := w.Result()
+  defer resp.Body.Close()
+  body, err := io.ReadAll(resp.Body)
+  if err != nil {
+    panic(err)
+  }
+
+  fmt.Println("body: ", string(body))
+  fmt.Println("status code: ", resp.StatusCode)
+}
+    
+Разберёмся, что здесь происходит:
+
+httptest.NewRequest("GET", "http://google.com", nil) создаёт новый макет запроса для вашего сервера. Вы передаёте его своему обработчику в качестве объекта запроса
+w := httptest.NewRecorder() записывает все ответы от обработчика
+handler(w, req) вызывает функцию обработчика
+resp := w.Result() возвращает результат http-сервера
+Как вы понимаете, никакого сервера по адресу http://google.com нет, но мы сымитировали запрос туда и смогли получить ответ, который выдал написанный нами хендлер.
+
+ 
